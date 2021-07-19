@@ -1,0 +1,25 @@
+{
+  "name": "proyecto-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js",
+    "mysql:migrate": "node ./src/persistence/mysql/migration.js",
+    "mysql:drop": "node ./src/persistence/mysql/drop.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "knex": "^0.95.7",
+    "mongoose": "^5.13.2",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
+  }
+}
