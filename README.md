@@ -1,13 +1,10 @@
-## Proyecto Final- Primera entrega
+## Proyecto Final- Segunda entrega
 
-Se implemento el proyecto separando la logica de la siguiente manera:
-* Routes:  Se definen las rutas necesarias tanto de productos como el carrito.
-* Controllers: Se manejan las peticiones de las rutas y retorna la respuesta correspondiente.
-* Persistence: Se encuentran las clases Product y Cart que manipulan y devuelven los recursos al controlador. 
- 
-Se creo una clase FSManager para facilitar el manejo de archivos con fs
+A partir de la primera entrega se debia cumplir: 
 
-Se debia crear una variable Booleana administrador, la cual segun su valor permita alcanzar o no algunas rutas. **Se creo un middleware `\middlewares\checkAdmin` y se aplico en los archivos de rutas correspondientes.**
+Se debia implementar diferentes persistencias utilizando clases con la misma interfaz( los mismos metodos ). Cada clase debia representar una persistencia diferente.
+Para seleccionar el modo de persistencia se debia implementar un patron Factory el cual reciba un numero de persistenca. y devolver el objeto correspondiente para el uso por parte del controlador en cada caso: Carrito, Productos.
+
 
 
 
@@ -17,6 +14,9 @@ Se debia crear una variable Booleana administrador, la cual segun su valor permi
 
  * **Obtener todos los productos**
     * `GET` | /productos/listar
+  
+ * **Filtrar Productos**
+    * `GET` |  /productos/listar?nombre=producto&codigo=5&precio=200.00&stock=1
   
  * **Obtener un producto**
     * `GET` |  /productos/listar/:id 
@@ -44,12 +44,18 @@ Se debia crear una variable Booleana administrador, la cual segun su valor permi
  * **Eliminar item del carrito**
     * `DELETE` |  /carrito/borrar/:id
 
+
 Para ejecutar en local:   
-`npm start`
+`npm run dev`
 
-Demo en Glitch: 
+El nombre de la base de datos en mysql es `ecommerce`
+Para realizar las migracion en mysql:
+`npm run mysql:migrate`
 
-https://purrfect-square-pigment.glitch.me/ 
+Para realizar el drop de las tablas: 
+`npm run mysql:drop`
+
+
 
 
 *by Alejandro Aliaga.*
