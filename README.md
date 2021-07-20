@@ -2,12 +2,34 @@
 
 A partir de la primera entrega se debia cumplir: 
 
-Se debia implementar diferentes persistencias utilizando clases con la misma interfaz( los mismos metodos ). Cada clase debia representar una persistencia diferente.
-Para seleccionar el modo de persistencia se debia implementar un patron Factory el cual reciba un numero de persistenca. y devolver el objeto correspondiente para el uso por parte del controlador en cada caso: Carrito, Productos.
+Implementar diferentes persistencias utilizando clases con la misma interfaz( los mismos metodos ). Cada clase debia representar una persistencia diferente.
+Para seleccionar el modo de persistencia se debia usar el patron Factory el cual reciba un numero de persistenca y devolver el objeto correspondiente para el uso por parte del controlador.
+
+---
+La variable global para cambiar la persistencia se encuentra en `config\index`. Segun el numero :
+   **1** FileSystem
+   **2** Mongo
+   **3** MongoAtlas
+   **4** MySql 
+
+Cada clase que devuelve el Factory implementa los metodos definidos en Persistencia `persistence/Persistence.js` la cual hace de interfaz, y otorga los metodos : 
+ * **connectDB** : Se utiliza en server.js para iniciar la db
+ * **getModel**: En los controladores para obtener el model correspondiente para realizar las operaciones del CRUD.
 
 
+----
 
+Para ejecutar en local:   
+`npm run dev`
 
+El nombre de la base de datos en mysql es `ecommerce`
+Para realizar las migracion en mysql:
+`npm run mysql:migrate`
+
+Para realizar el drop de las tablas: 
+`npm run mysql:drop`
+
+---
 #### Rutas: 
 
  ##### Productos
@@ -45,19 +67,10 @@ Para seleccionar el modo de persistencia se debia implementar un patron Factory 
     * `DELETE` |  /carrito/borrar/:id
 
 
-Para ejecutar en local:   
-`npm run dev`
-
-El nombre de la base de datos en mysql es `ecommerce`
-Para realizar las migracion en mysql:
-`npm run mysql:migrate`
-
-Para realizar el drop de las tablas: 
-`npm run mysql:drop`
 
 
 
 
-*by Alejandro Aliaga.*
 
->Curso de Programacion Backend Coderhouse
+---
+ *made with* :persevere: *by ale*
