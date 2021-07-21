@@ -18,15 +18,16 @@ Cada clase que devuelve el Factory implementa los metodos definidos en Persisten
 
 
 ----
+En .env.example se encuentran las variables necesarias para el proyecto, **se debe definir la url de mongoAtlas**
 
 Para ejecutar en local:   
 `npm run dev`
 
-El nombre de la base de datos en mysql es `ecommerce`
-Para realizar las migracion en mysql:
+El nombre de la base de datos en mysql es `ecommerce`  
+Para realizar las migracion en mysql:  
 `npm run mysql:migrate`
 
-Para realizar el drop de las tablas: 
+Para realizar el drop de las tablas:   
 `npm run mysql:drop`
 
 ---
