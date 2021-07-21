@@ -14,7 +14,7 @@ La variable global para cambiar la persistencia se encuentra en `config\index`. 
 
 Cada clase que devuelve el Factory implementa los metodos definidos en Persistencia `persistence/Persistence.js` la cual hace de interfaz, y otorga los metodos : 
  * **connectDB** : Se utiliza en server.js para iniciar la db
- * **getModel**: En los controladores para obtener el model correspondiente para realizar las operaciones del CRUD.
+ * **getModel**: Se utiliza en los controladores para obtener el model correspondiente para realizar las operaciones del CRUD.
 
 
 ----
