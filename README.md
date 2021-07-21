@@ -2,8 +2,10 @@
 
 A partir de la primera entrega se debia cumplir: 
 
-Implementar diferentes persistencias utilizando clases con la misma interfaz( los mismos metodos ). Cada clase debia representar una persistencia diferente.
+Implementar diferentes persistencias utilizando clases con la misma interfaz( los mismos metodos ).   
+Cada clase debia representar una persistencia diferente.  
 Para seleccionar el modo de persistencia se debia usar el patron Factory el cual reciba un numero de persistenca y devolver el objeto correspondiente para el uso por parte del controlador.
+
 
 ---
 La variable global para cambiar la persistencia se encuentra en `config\index`. Segun el numero :
@@ -16,6 +18,11 @@ Cada clase que devuelve el Factory implementa los metodos definidos en Persisten
  * **connectDB** : Se utiliza en server.js para iniciar la db
  * **getModel**: Se utiliza en los controladores para obtener el model correspondiente para realizar las operaciones del CRUD.
 
+En las clases definidas en **controllers** se importa la persistencia y se obtiene el modelo correspondiente.
+
+Se creo la opcion de filtro segun 'nombre'(string) , 'codigo'(string), 'precio'(number), 'stock'(number) en la ruta productos/listar a traves de query params.
+
+Tanto en las migraciones de MySql como en Mongo se aplico la eliminacion en cascada (al eliminar un producto, se eliminan del carrito) utilizando el middleware 'pre' en mongoose y la opcion CASCADE al crear la tabla con knex.
 
 ----
 En .env.example se encuentran las variables necesarias para el proyecto, **se debe definir la url de mongoAtlas**
