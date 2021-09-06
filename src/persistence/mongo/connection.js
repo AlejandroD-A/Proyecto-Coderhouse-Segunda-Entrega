@@ -7,7 +7,7 @@ const url = persistence == 2 ? process.env.MONGO_URL : process.env.MONGO_ATLAS_U
 const dbName = persistence == 2 ? 'MONGO LOCAL' : 'MONGO ATLAS'
 const connection = mongoose.connect(url,
      { 
-        useNewUrlParser:  true, useUnifiedTopology: true
+        useNewUrlParser:  true, useUnifiedTopology: true,useFindAndModify : false
      }
     )
 
