@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
+    "build":"cd client && npm install && npm run build",
     "mysql:migrate": "node ./src/persistence/mysql/migration.js",
     "mysql:drop": "node ./src/persistence/mysql/drop.js"
   },
