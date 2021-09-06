@@ -5,8 +5,8 @@
 Para ejecutar en local:  
 `npm run dev`
 
-El nombre de la base de datos en mysql es `ecommerce`
-Para realizar las migracion en mysql:
+El nombre de la base de datos en mysql es `ecommerce`  
+Para realizar las migracion en mysql:  
 `npm run mysql:migrate`
 
 Para realizar el drop de las tablas:
