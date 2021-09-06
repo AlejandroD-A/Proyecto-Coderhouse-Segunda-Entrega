@@ -1,4 +1,4 @@
-const {persistence} = require('../config')
+const { persistence } = require('../config')
 
 class PersistenceFactory{
 
