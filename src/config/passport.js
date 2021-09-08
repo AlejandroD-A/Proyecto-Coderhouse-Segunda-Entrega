@@ -6,10 +6,14 @@ module.exports = ( passport ) => {
         done(null,user._id)
     })
 
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function (err, user){
-            done(err,user)
-        })
+    passport.deserializeUser(async function (id, done) {
+        try{
+            const user = await User.findById(id, {__v: false, password: false })
+            done(null ,user)
+        }catch(err){
+            done(err,null)
+        }
+    
     })
 
     passport.use('signup', new LocalStrategy({
