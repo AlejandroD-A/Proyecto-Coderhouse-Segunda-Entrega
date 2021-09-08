@@ -7,7 +7,6 @@ module.exports = ( passport ) => {
     })
 
     passport.deserializeUser(function(id, done) {
-
         User.findById(id, function (err, user){
             done(err,user)
         })
@@ -18,7 +17,6 @@ module.exports = ( passport ) => {
         passReqToCallback: true
     },  async (req, email, password, done) => {
             try{
-                console.log(req.body)
                 let user = await User.findOne({ email: email })
                 if (user) return done( null, false, console.log("message","User Already Exists"))
                 user = await User.create(req.body)
@@ -29,5 +27,26 @@ module.exports = ( passport ) => {
             }
         }
         )
+    )
+
+    passport.use('login',new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    },
+        async (req,email,password,done) => {
+
+            try{   
+                let user = await User.findOne({email: email})
+
+                if(!user) return done( null, false, console.log("message","User doesn't exist"))
+
+                if( !user.verifyPassword(password) ) return done(null,false, console.log("message","Password doesn't  match with the record")) 
+                return done(null, user)
+            }catch(err){
+                done(err)
+            }
+        }
+    )
     )
 }

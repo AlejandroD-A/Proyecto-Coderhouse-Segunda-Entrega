@@ -29,12 +29,16 @@ const UserSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-    phoneNumber :
+    phone :
         { 
             type: String,
             required: true
         },
-    
+    avatar :
+        { 
+            type: String,
+            required: true
+        },
 })
 
 UserSchema.pre('save',async function(next){
@@ -43,5 +47,9 @@ UserSchema.pre('save',async function(next){
     this.password = hash
     next()
 })
+
+UserSchema.methods.verifyPassword = function (password) {
+    return bcrypt.compareSync(password, this.password)
+}
 
 module.exports = mongoose.model('User',UserSchema)
