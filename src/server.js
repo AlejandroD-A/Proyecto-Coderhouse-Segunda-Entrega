@@ -2,6 +2,7 @@ const express = require ('express')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const passport = require('passport')
+const path = require('path')
 
 require('dotenv').config()
 const app = express()
@@ -14,8 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({
     extended : true
 }))
-
-
+app.use(express.static(path.resolve(__dirname, '../client/build')))
 
 //DB connection 
 persistence.connectDB()
@@ -36,7 +36,6 @@ app.use(session({
   }))
 
 //- Passport 
-
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -51,6 +50,10 @@ app.use((error, req, res, next) => {
     console.log(error)
     return res.status(error.code || 500).json({ error : error })
   })
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 //Error de Ruta
 app.use((req, res, next) => {
