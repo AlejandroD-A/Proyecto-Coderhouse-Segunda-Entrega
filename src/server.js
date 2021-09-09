@@ -44,6 +44,7 @@ app.use(passport.session())
 app.use('/productos',require('./routes/products.routes'))
 app.use('/carrito',require('./routes/cart.routes'))
 app.use('/auth', require('./routes/auth.routes'))
+app.use('/order', require('./routes/order.routes'))
 
 // Middleware para manejar errores
 app.use((error, req, res, next) => {
