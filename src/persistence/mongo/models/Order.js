@@ -14,7 +14,7 @@ class OrderModel {
         const productsIds = cartProducts.map(cartItem => cartItem.product._id)
         const newOrder  = await Order.create({ products: productsIds, user: userId })
         
-        await Cart.remove({ user: userId })
+        await Cart.deleteMany({ user: userId })
 
         return await newOrder.populate('products',{ stock: false, __v: false }).execPopulate()
 
