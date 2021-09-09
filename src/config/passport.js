@@ -1,5 +1,8 @@
 const LocalStrategy = require('passport-local').Strategy
 const User = require('../persistence/mongo/schemas/UserSchema')
+const { sendMail } = require('../mail/gmail')
+
+
 module.exports = ( passport ) => {
 
     passport.serializeUser(function(user, done) {
@@ -24,6 +27,9 @@ module.exports = ( passport ) => {
                 let user = await User.findOne({ email: email })
                 if (user) return done( null, false, console.log("message","User Already Exists"))
                 user = await User.create(req.body)
+                
+                await sendMail(user)
+
                 return done(null, user)
             }catch(err){
                 console.log(err)
