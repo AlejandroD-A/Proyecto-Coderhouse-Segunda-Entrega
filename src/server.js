@@ -6,11 +6,14 @@ const path = require('path')
 
 require('dotenv').config()
 const app = express()
-const morgan = require('morgan')
+
+if(process.env.ENV == 'DEV') {
+  const morgan = require('morgan')
+  app.use(morgan('tiny'))
+}
 
 const persistence = require('./persistence')
 
-app.use(morgan('tiny'))
 app.use(express.json())
 app.use(express.urlencoded({
     extended : true
