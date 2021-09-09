@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const Product = require('./ProductSchema')
 
 const OrderSchema = new mongoose.Schema({
     timestamp : 
@@ -16,9 +15,11 @@ const OrderSchema = new mongoose.Schema({
         },    
     products :
         { 
-            type: [ {type: mongoose.Schema.Types.ObjectId,
-                ref: 'Product',
-                required: true} ],
+            type: [
+                   {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Product',
+                    required: true} ],
             default: undefined,
             required: true
         }
