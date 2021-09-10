@@ -1,20 +1,17 @@
 
 
 export const register = async (user)=> {
-	try{
-		const data = await fetch('/auth/signup',{
+
+		const res = await fetch('/auth/signup',{
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(user)
 		})
-		const jsonData = await data.json()
-		return jsonData
 
-	}catch(err){
-		console.error(err)
-	}
+		if (!res.ok) throw new Error('Ha ocurrido un Error')
+		return await res.json()
 }
 
 export const login = async (user)=> {
@@ -30,6 +27,6 @@ export const login = async (user)=> {
 		return jsonData
 
 	}catch(err){
-		console.error(err)
+		throw err 
 	}
 }
