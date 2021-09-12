@@ -1,6 +1,5 @@
 const Order = require('../schemas/OrderSchema')
 const Cart = require('../schemas/CartSchema')
-const Product = require('../schemas/ProductSchema')
 
 class OrderModel {
     
