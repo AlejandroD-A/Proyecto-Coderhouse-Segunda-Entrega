@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 
-import useCart from 'hooks/useCart'
+import useCart from '../../hooks/useCart'
 
 import { Container } from './Styles'
 
