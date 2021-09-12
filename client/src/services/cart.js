@@ -40,3 +40,16 @@ export const remove = async (id)=> {
 		console.error(err)
 	}
 }
+
+
+export const confirm = async ()=> {
+	try{
+		const data = await fetch(`/order`,{
+			method: 'POST'
+		})
+		const jsonData = await data.json()
+		return jsonData.order
+	}catch(err){
+		console.error(err)
+	}
+}

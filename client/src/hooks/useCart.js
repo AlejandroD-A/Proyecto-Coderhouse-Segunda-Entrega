@@ -1,6 +1,6 @@
 import { useDispatch,useSelector } from 'react-redux'
 import { useState, useEffect, useCallback } from 'react'
-import { getAll, remove as removeService } from '../services/cart'
+import { getAll, remove as removeService, addNew as addNewService, confirm as confirmService} from '../services/cart'
 import Actions from '../store/actions'
 
 export default function useCart(){
@@ -17,11 +17,39 @@ export default function useCart(){
 		
 	},[dispatch])
     
-    const remove = useCallback((id) => {
-        removeService(id)
-            .then((data) => dispatch({ type: '@cart/removeOne', payload: data }))
-            .catch(err => console.log(err))
+    const remove = useCallback(
+        async (id) => {
+            try{
+                const data = await removeService(id)
+                dispatch(Actions.Cart.removeOne(data))
+            }catch(err){
+                console.log(err)
+            }
     },[dispatch])
 
-	return { loadCart, cartItems, remove}
+    const addNew = useCallback( 
+        async (id) => {
+            try{
+                const data = await addNewService(id)
+                dispatch(Actions.Cart.add(data))
+            }catch(err){
+                console.error(err)
+            }
+        }
+    ,[dispatch])
+
+    const confirm = useCallback(
+        async () => {
+            try{
+                const order = await confirmService()
+                dispatch(Actions.Cart.removeAll())
+                return order
+            }catch(err){
+                console.error(err)
+            }	
+	},[dispatch])
+
+   
+
+	return { cartItems, loadCart, remove, addNew, confirm}
 }

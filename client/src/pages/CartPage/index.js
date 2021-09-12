@@ -3,11 +3,17 @@ import { useCallback } from 'react'
 
 function CartPage() {
 
-    const { remove, cartItems } = useCart()
+    const { remove, cartItems, confirm } = useCart()
+
 	const handleDelete = (id) => {
 		remove(id)
 	}
 
+    const handleConfirm =  async () => {
+        const orderData = await confirm()
+        console.log(orderData)
+        
+    }
 
     const getTotal = useCallback(()=>{
         if(cartItems.length > 1){
@@ -24,13 +30,13 @@ function CartPage() {
     return (
         <div>
             <h1>Carrito</h1>
+
 			{ !cartItems.length && <span> No hay nada en el Carrito</span> }
 
 			<ul>
 				{ cartItems && cartItems.map((item) => (
 					<li key={item._id}>
 					    { item.product.title } ${ item.product.price }
-
 						<button onClick={() => handleDelete(item._id) } >Eliminar</button>
 					</li>
 				)) }
@@ -38,7 +44,7 @@ function CartPage() {
 			</ul>
              { cartItems.length > 0 &&  <p>Total: ${ getTotal() }</p> }
             
-            <button>Confirmar Pedido</button>
+            {cartItems.length > 0 && <button onClick = {handleConfirm}>Confirmar Pedido</button>  } 
         </div>
     )
 }
