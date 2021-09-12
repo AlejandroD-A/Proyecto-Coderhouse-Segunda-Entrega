@@ -1,20 +1,29 @@
-import {  useDispatch, useSelector } from 'react-redux'
-import { remove } from '../../services/cart'
+import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+
+import useCart from 'hooks/useCart'
+
 import { Container } from './Styles'
 
+
 function Cart() {
-	const dispatch = useDispatch()
-	const cartItems = useSelector((state) => state.Cart)
+
+	const { remove, loadCart, cartItems } = useCart()
+
+	useEffect(() => {
+		 loadCart()
+	}, [])
+
 	const handleDelete = (id) => {
-		remove(id).then((data) => dispatch({ type: '@cart/removeOne', payload: data }))
+		remove(id)
 	}
-    
 	return (
 		<Container>
 			<h1>Carrito</h1>
 			{ !cartItems.length && <span> No hay nada en el Carrito</span> }
+
 			<ul>
-				{ cartItems.map((item) => (
+				{ cartItems && cartItems.map((item) => (
 					<li key={item._id}>
 						{ item.product.title }
 						<button onClick={() => handleDelete(item._id) } >Eliminar</button>
@@ -22,6 +31,9 @@ function Cart() {
 				)) }
 
 			</ul>
+
+			{ cartItems.length > 0 && <h5><Link to="/cart">Comprar!</Link></h5>
+ }
 		</Container>
 	)
 }
