@@ -4,6 +4,7 @@ const MongoStore = require('connect-mongo')
 const passport = require('passport')
 const path = require('path')
 const persistence = require('./persistence')
+const logger = require('./logger')
 
 require('dotenv').config()
 
@@ -13,7 +14,6 @@ if(process.env.ENV == 'DEV') {
   const morgan = require('morgan')
   app.use(morgan('tiny'))
 }
-
 
 app.use(express.json())
 app.use(express.urlencoded({
@@ -51,7 +51,7 @@ app.use('/order', require('./routes/order.routes'))
 
 // Middleware para manejar errores
 app.use((error, req, res, next) => {
-    console.log(error)
+    logger.info(error)
     return res.status(error.code || 500).json({ error : error })
   })
 
@@ -71,6 +71,6 @@ app.use((req, res, next) => {
 
 const PORT = process.env.PORT || 8080
 
-app.listen(PORT, () => console.log(`Running in http://localhost:${PORT}`))
+app.listen(PORT, () => logger.info(`Running in http://localhost:${PORT}`))
 
-app.on('error',err => console.log(err))
+app.on('error',err => logger.error(err))

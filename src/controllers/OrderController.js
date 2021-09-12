@@ -4,6 +4,8 @@ const Mail = require('../messaging/mail')
 const WhatsApp = require('../messaging/whatsapp')
 const Sms = require('../messaging/sms')
 
+const logger = require('../logger')
+
 class OrderController{
     constructor(){
     }
@@ -21,10 +23,13 @@ class OrderController{
             //Envio de Sms a User
             await Sms.userNewOrder(req.user.phone)
 
+            logger.info(`Se ha creado un nuevo Pedido,${order._id}, usuario: ${req.user._id}`)
+
+
             return res.json({ message : 'Success', order: order })
 
         }catch(err){
-            console.log(err)
+            logger.error(err)
             return res.status(500).json({ error: 'Ha ocurrido un error' })
         }   
     }

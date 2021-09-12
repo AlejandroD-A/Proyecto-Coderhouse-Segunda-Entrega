@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-
 const { persistence } = require('../../config')
+const logger = require('../../logger')
 
 const url = persistence == 2 ? process.env.MONGO_URL : process.env.MONGO_ATLAS_URL
-
 const dbName = persistence == 2 ? 'MONGO LOCAL' : 'MONGO ATLAS'
 
 const connection = mongoose.connect(`${url}/ecommerce`,
@@ -13,11 +12,11 @@ const connection = mongoose.connect(`${url}/ecommerce`,
     )
 
 mongoose.connection.on('connected', ()=> {
-    console.log(`[${dbName}] - Connected in: `,url)
+    logger.info(`[${dbName}] - Connected in: ${url}`)
 })
 
 mongoose.connection.on('error',(err)=>{
-    console.log('[Mongoose]- Error :',err)
+    logger.info('[Mongoose]- Error :',err)
 })
 
 module.exports = connection

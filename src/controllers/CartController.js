@@ -8,7 +8,7 @@ class CartController{
     async listar(req,res){
         try{
             const id = req.params.id
-            
+
             if( !id ) return res.json({cart: await cartPersis.getAll(req.user._id) })
         
             const cartProduct =  await cartPersis.get(id, req.user._id)
@@ -18,7 +18,6 @@ class CartController{
             return res.json({cartProduct: cartProduct})
 
         }catch(err){
-            console.log(err)
             return res.status(500).json({error: 'Ha ocurrido un error'})
         }
         
@@ -33,7 +32,6 @@ class CartController{
             return res.json({producto : cartProduct})
     
         }catch(err){
-            console.log(err)
             return res.status(500).json({error: 'Ha ocurrido un error'})
         }
        
@@ -48,7 +46,6 @@ class CartController{
             return res.json({message: 'Se ha eliminado el producto', producto: producto})
 
         }catch(err){
-            console.log(err)
             return res.status(500).json({error: 'Ha ocurrido un error'})
         }
        
