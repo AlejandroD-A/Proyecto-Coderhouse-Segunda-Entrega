@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
-import useCart from 'hooks/useCart'
-import useUser from 'hooks/useUser'
+import useCart from '../../hooks/useCart'
+import useUser from '../../hooks/useUser'
 
 import { IoBagAddOutline, IoBagAdd } from 'react-icons/io5'
 

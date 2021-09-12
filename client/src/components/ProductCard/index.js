@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-import BtnAddToCart from 'components/BtnAddToCart'
+import BtnAddToCart from '../BtnAddToCart'
 
 import { Card } from './Styles'
 
