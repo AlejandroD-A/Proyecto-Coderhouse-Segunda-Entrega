@@ -1,18 +1,18 @@
 import useCart from 'hooks/useCart'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 function CartPage() {
 
     const { remove, cartItems, confirm } = useCart()
+    const [ order, setOrder ] = useState([])
 
 	const handleDelete = (id) => {
 		remove(id)
 	}
 
     const handleConfirm =  async () => {
-        const orderData = await confirm()
-        console.log(orderData)
-        
+        const { products } = await confirm()
+        setOrder(products)
     }
 
     const getTotal = useCallback(()=>{
@@ -28,24 +28,46 @@ function CartPage() {
     },[cartItems])
 
     return (
-        <div>
-            <h1>Carrito</h1>
+        <>
+            { !order.length && 
+             <div>
+             <h1>Carrito</h1>
+ 
+             { !cartItems.length && <span> No hay nada en el Carrito</span> }
+ 
+             <ul>
+                 { cartItems && cartItems.map((item) => (
+                     <li key={item._id}>
+                         { item.product.title } ${ item.product.price }
+                         <button onClick={() => handleDelete(item._id) } >Eliminar</button>
+                     </li>
+                 )) }
+ 
+             </ul>
+              { cartItems.length > 0 &&  <p>Total: ${ getTotal() }</p> }
+             
+             {cartItems.length > 0 && <button onClick = {handleConfirm}>Confirmar Pedido</button>  } 
+         </div>
+            }
 
-			{ !cartItems.length && <span> No hay nada en el Carrito</span> }
+            {order.length > 0 &&
+                <>
+                    <h1>Se ha confirmado tu Pedido </h1>
 
-			<ul>
-				{ cartItems && cartItems.map((item) => (
-					<li key={item._id}>
-					    { item.product.title } ${ item.product.price }
-						<button onClick={() => handleDelete(item._id) } >Eliminar</button>
-					</li>
-				)) }
+                    {order.map((item) => (
+                        <span>{item.title} </span>
+                        )
+                    )}
+                </>
 
-			</ul>
-             { cartItems.length > 0 &&  <p>Total: ${ getTotal() }</p> }
-            
-            {cartItems.length > 0 && <button onClick = {handleConfirm}>Confirmar Pedido</button>  } 
-        </div>
+            }
+
+        </>
+
+
+
+         
+      
     )
 }
 
