@@ -54,7 +54,7 @@ function RegisterPage() {
 
 				<div>
 					<label htmlFor="phone">Numero de Telefono:</label>
-					<input type="number" placeholder ="your phone" name= "phone" onChange ={handleChange} />
+					<input type="tel" placeholder ="your phone" name= "phone" onChange ={handleChange} />
 				</div>
 
 				<div>
