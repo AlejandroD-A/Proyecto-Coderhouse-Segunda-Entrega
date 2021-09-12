@@ -16,12 +16,8 @@ class ProductModel{
     }
     
     async create(data){
-        try{
-            const product = await Product.create(data)
-            return product
-        }catch(err){
-            return err
-        }
+        const product = await Product.create(data)
+        return product
     }
 
     async update(id, data){
