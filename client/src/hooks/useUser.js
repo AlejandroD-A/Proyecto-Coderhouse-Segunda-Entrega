@@ -25,16 +25,6 @@ export default function useUser() {
         console.error(err)
       }
     }
-
-    useEffect(() => {
-      if(!user.isLogged){
-        getUser()
-      }
-    }, [])
-
- 
-
-
     const dispatch = useDispatch()
 
     const login = useCallback(
@@ -74,7 +64,10 @@ export default function useUser() {
         try{
           setState({ loading: true, error: false })
           await logoutService()
+
           dispatch(Actions.User.logout())
+          dispatch(Actions.Cart.removeAll())
+
           setState({ loading: false, error:false })
         }catch(err){
           setState({ loading: false, error: 'Ha ocurrido un error' })
@@ -89,6 +82,7 @@ export default function useUser() {
       logout,
       user,
       register,
+      getUser,
       ...state,
     }
 }

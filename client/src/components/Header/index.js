@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { RiShoppingBasketLine, RiSearchLine } from 'react-icons/ri'
 import { Header as HeaderStyle,
@@ -14,12 +14,19 @@ import useUser from 'hooks/useUser'
 
 function Header() {
 	const [showCart, setShowCart] = useState(false)
-	const { isLogged, user, logout } = useUser()
+	const { isLogged, user, logout, getUser } = useUser()
 
 	const handleLogout = async ()=>{
 		await logout()
 		alert('Ha cerrado sesion')
 	}
+
+	useEffect(() => {
+		if(!isLogged){
+			console.log('getting user')
+			getUser()
+		} 
+	}, [])
 
 	return (
 		<>	
