@@ -60,12 +60,14 @@ Se crearon las rutas:
  `GET auth/logout`: Realiza el evento logout que provee passport y devuelve el mensaje de OK si se realiza sin problemas.
 `GET auth/user`: Devuelve los datos del usuario logueado.
 
-**Formulario post de Registro y de Login**
+**Front-End**
 
 Se implemento la parte de Front-End utilizando React.
 Se crearon las rutas '/login' '/register' utilizando react-router. Al realizar submit de estos formularios redirigen a la root de la aplicacion.
 
 Se creo un componente Header el cual renderiza el carrito, los datos del usuario ingresado y el boton de logout. En caso de no estar logueado muestra los enlaces a Register y Login.
+
+Se creo el componente Cart el cual muestra los elementos del carrito. Se creo la vista /Cart.
 
 **NodeMailer**
 Se definieron variables de entorno GMAIL_USER, GMAIL_PASSWORD para enviar mails al administrador a traves de esta liberia.
@@ -107,13 +109,19 @@ Se realizo la prueba de performance sobre la ruta `productos/listar `en la cual 
 
 ---
 
-**Deployments**
+**Ejecutar en local**
 
 Para ejecutar en local:  
 `npm run dev`
 
 Para ejecutar en modo Cluster :  
 `npm run dev CLUSTER`
+
+**:rocket:Deploy**
+
+Se realizó el deploy en Heroku.
+
+https://ecom-ale.herokuapp.com/
 
 ---
 
@@ -163,7 +171,5 @@ Para ejecutar en modo Cluster :
 
 - **Crear nuevo pedido**
   - `POST` | /order/
-
----
 
 _made with_ :persevere: _by ale_
