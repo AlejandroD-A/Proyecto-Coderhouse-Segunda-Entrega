@@ -1,28 +1,53 @@
 import { useState } from 'react'
-import Cart from '../Cart'
+import { Link } from 'react-router-dom'
 import { RiShoppingBasketLine, RiSearchLine } from 'react-icons/ri'
 import { Header as HeaderStyle,
-	Logo, 
-	NavBar } from './styles' 
+		Logo, 
+		NavBar } 
+		from './styles' 
+
 import AsideContainer from '../AsideContainer'
+import Cart from '../Cart'
+
+import useUser from 'hooks/useUser'
+
 
 function Header() {
 	const [showCart, setShowCart] = useState(false)
+	const { isLogged, user, logout } = useUser()
+
+	const handleLogout = async ()=>{
+		await logout()
+		alert('Ha cerrado sesion')
+	}
+
 	return (
-		<>
+		<>	
 			<HeaderStyle>
-				<Logo>Plast</Logo>
+				<Logo><Link to='/'>Plast</Link></Logo>
 				<NavBar>
-					<li><RiSearchLine/></li>
-					<li onClick={()=> setShowCart(true)}><RiShoppingBasketLine/></li>
+				{ isLogged ? 
+					<>
+						<li> <RiSearchLine/></li>
+						<li onClick={()=> setShowCart(true)}><RiShoppingBasketLine/></li>
+						<li> { user.email } </li>
+						<li><a onClick={ handleLogout } >Logout</a></li>
+					</>
+				:
+					<>
+						<li><Link to="/login">Login</Link></li>
+						<li><Link to="/register">Register</Link></li>
+					</>
+					
+				}
 				</NavBar>
 			</HeaderStyle>
-
-
+			
+			{ isLogged && 
 			<AsideContainer state= {showCart} onClose = {()=> setShowCart(false)}>
-				<Cart />
+				 <Cart />
 			</AsideContainer>
-            
+			}
 		</>
         
 

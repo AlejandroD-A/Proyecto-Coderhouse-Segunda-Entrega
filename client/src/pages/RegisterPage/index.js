@@ -1,29 +1,32 @@
-import { useState } from 'react'
-import { register } from '../../services/auth'
+import { useState, useEffect } from 'react'
+import useUser from '../../hooks/useUser'
+import { useHistory } from 'react-router-dom'
 
 function RegisterPage() {
 	const [ formData, setFormData ] = useState({})
+	const { register, loading, error, isLogged } = useUser()
+	const history = useHistory()
+
+	useEffect(() => {
+		if(isLogged){ 
+		  history.push('/')}
+	  },[isLogged])
 
 	const handleChange = (e)=> {
 		setFormData({...formData,[e.target.name]: e.target.value })
 	}
 
 	const submitForm = async (e) => {
-		try{
-			e.preventDefault()
-            
-			const user = await register(formData)
-
-			console.log(user)
-		}catch(err){
-			console.log(err)
-		}
+		e.preventDefault()
+		await register(formData)
 	}
+
 
 	return (
 		<div>
 			<h1>Registro</h1>
-
+			{ loading && <span>Loading...</span>}
+			{ error && <span> { error }</span> }
 			<form>
 				<div>
 					<label htmlFor="email">Email:</label>
@@ -59,7 +62,7 @@ function RegisterPage() {
 					<input type="text" placeholder ="your avatar" name= "avatar" onChange ={handleChange} />
 				</div>
 
-				<button onClick={submitForm}>Registrame</button>
+				<button onClick={submitForm} disabled={ loading }>Registrame</button>
 
 			</form>
 		</div>
