@@ -9,7 +9,7 @@ import { Header as HeaderStyle,
 import AsideContainer from '../AsideContainer'
 import Cart from '../Cart'
 
-import useUser from 'hooks/useUser'
+import useUser from '../../hooks/useUser'
 
 
 function Header() {
