@@ -3,8 +3,10 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const passport = require('passport')
 const path = require('path')
+const persistence = require('./persistence')
 
 require('dotenv').config()
+
 const app = express()
 
 if(process.env.ENV == 'DEV') {
@@ -12,7 +14,6 @@ if(process.env.ENV == 'DEV') {
   app.use(morgan('tiny'))
 }
 
-const persistence = require('./persistence')
 
 app.use(express.json())
 app.use(express.urlencoded({
@@ -24,7 +25,6 @@ app.use(express.static(path.resolve(__dirname, '../client/build')))
 persistence.connectDB()
 
 require('./config/passport')(passport)
-
 
 //Sessions
 const sessionUrl  = process.env.ENV == 'DEV' ? process.env.MONGO_URL : process.env.MONGO_ATLAS_URL
@@ -55,6 +55,7 @@ app.use((error, req, res, next) => {
     return res.status(error.code || 500).json({ error : error })
   })
 
+//Maneja Error de Ruta - Falta filtrar Api
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
