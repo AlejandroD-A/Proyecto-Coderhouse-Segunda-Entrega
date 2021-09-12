@@ -2,10 +2,10 @@
   "name": "proyecto-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/server.js",
+  "main": "./src/index.js",
   "scripts": {
-    "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
     "build": "cd client && npm install && npm run build",
     "mysql:migrate": "node ./src/persistence/mysql/migration.js",
     "mysql:drop": "node ./src/persistence/mysql/drop.js"
@@ -24,7 +24,9 @@
     "mysql": "^2.18.1",
     "nodemailer": "^6.6.3",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "twilio": "^3.67.2",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "morgan": "^1.10.0"
