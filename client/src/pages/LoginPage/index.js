@@ -8,7 +8,6 @@ function LoginPage() {
  	const { login, loading, error, isLogged } = useUser()
 
 	useEffect(() => {
-	  console.log(isLogged)
 	  if(isLogged){ 
 		history.push('/')}
 	},[isLogged])
