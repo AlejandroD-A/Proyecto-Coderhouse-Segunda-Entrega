@@ -1,6 +1,8 @@
 const LocalStrategy = require('passport-local').Strategy
 const User = require('../persistence/mongo/schemas/UserSchema')
+
 const Mail = require('../messaging/mail')
+const logger = require('../logger')
 
 
 module.exports = ( passport ) => {
@@ -25,14 +27,26 @@ module.exports = ( passport ) => {
     },  async (req, email, password, done) => {
             try{
                 let user = await User.findOne({ email: email })
-                if (user) return done( null, false, console.log("message","User Already Exists"))
-                user = await User.create(req.body)
-                
+                if (user) return done( null, false, logger.info("User Already Exists"))
+                if (!req.file) return done( null, false, logger.info("No se envio una imagen"))
+                const data = req.body
+                const dataUser = {
+                    email : data.email,
+                    password : data.password,
+                    name : data.name,
+                    lastName : data.lastName,
+                    age :data.age,
+                    phone :data.phone,
+                    avatar :req.file.path
+                }
+
+                user = await User.create(dataUser)
+
                 await Mail.newRegister(user)
 
                 return done(null, user)
             }catch(err){
-                console.log(err)
+                logger.info(err)
                 done(err)
             }
         }

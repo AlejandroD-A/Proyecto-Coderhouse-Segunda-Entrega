@@ -59,7 +59,14 @@ function RegisterPage() {
 
 				<div>
 					<label htmlFor="avatar">Avatar:</label>
-					<input type="text" placeholder ="your avatar" name= "avatar" onChange ={handleChange} />
+					<input
+						className="file-input"
+						type="file"
+						id="file"
+						accept="image/*"
+						name="avatar" 
+						onChange= { (e) => setFormData({...formData,avatar: e.target.files[0] })} 
+						/>
 				</div>
 
 				<button onClick={submitForm} disabled={ loading }>Registrame</button>

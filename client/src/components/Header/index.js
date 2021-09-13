@@ -35,10 +35,11 @@ function Header() {
 				<NavBar>
 				{ isLogged ? 
 					<>
-						<li> <RiSearchLine/></li>
-						<li onClick={()=> setShowCart(true)}><RiShoppingBasketLine/></li>
-						<li> { user.email } </li>
-						<li><a onClick={ handleLogout } >Logout</a></li>
+						<li className="search">  <RiSearchLine/></li>
+						<li className="cart" onClick={()=> setShowCart(true) }><RiShoppingBasketLine/></li>
+						<li className="email"> { user.email } </li>
+						<li className="avatar"> <img src ={user.avatar} /></li>
+						<li className="logout"><a onClick={ handleLogout } >Logout</a></li>
 					</>
 				:
 					<>
