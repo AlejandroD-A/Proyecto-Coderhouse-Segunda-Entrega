@@ -21,6 +21,8 @@ app.use(express.urlencoded({
 }))
 app.use(express.static(path.resolve(__dirname, '../client/build')))
 
+app.use('/uploads',express.static(path.resolve(__dirname, '../uploads')))
+
 //DB connection 
 persistence.connectDB()
 
@@ -51,7 +53,7 @@ app.use('/order', require('./routes/order.routes'))
 
 // Middleware para manejar errores
 app.use((error, req, res, next) => {
-    logger.info(error)
+    logger.info(error.message)
     return res.status(error.code || 500).json({ error : error })
   })
 

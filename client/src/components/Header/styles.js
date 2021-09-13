@@ -21,17 +21,34 @@ export const NavBar = styled.ul`
     li{
         margin-right: 1rem;
         cursor: pointer;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         transition: transform 0.5s  ease;
         transition: color 0.5 ease;
+    }
+    .logout:hover{
+            color: red;
+        }
+    }
+
+    .cart,.search,img {
+
         :hover{
             transform: scale(1.5);
         }
         :active{
-            color: var(--color-pink)
+            color: var(--color-pink);
         }
     }
+
+    img{
+        transition: transform 0.5s  ease;
+        transition: color 0.5 ease;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+    }
 `
+
 const BaseModal = styled.div`
     ${(props) =>  console.log(props)}
     position: fixed;
