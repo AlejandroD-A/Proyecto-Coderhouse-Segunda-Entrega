@@ -8,6 +8,7 @@ import { Header as HeaderStyle,
 
 import AsideContainer from '../AsideContainer'
 import Cart from '../Cart'
+import logo from './logo.svg'
 
 import useUser from '../../hooks/useUser'
 
@@ -31,7 +32,7 @@ function Header() {
 	return (
 		<>	
 			<HeaderStyle>
-				<Logo><Link to='/'>Plast</Link></Logo>
+				<Logo><Link to='/'><img src={logo} alt= "logo"  /></Link></Logo>
 				<NavBar>
 				{ isLogged ? 
 					<>

@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import useCart from '../../hooks/useCart'
 import useUser from '../../hooks/useUser'
 
-import { IoBagAddOutline, IoBagAdd } from 'react-icons/io5'
+import { AddCartButton, RemoveCartButton, ButtonContainer} from './Styles'
 
 function BtnAddToCart({idProduct}) {
 
@@ -21,7 +21,9 @@ function BtnAddToCart({idProduct}) {
 
 	const handleButton = () => {
         if(!isLogged ) return alert('Debe Iniciar Sesion ')
+
         const item = isAdded()
+
         if( !item ){
             addNew(idProduct)
         }else{
@@ -32,15 +34,17 @@ function BtnAddToCart({idProduct}) {
 
         <>
             { !isAdded() ? 
-                <IoBagAddOutline 
-                    role="button"
-                    onClick= { handleButton } 
-                /> 
+                <ButtonContainer role="button"
+                onClick= { handleButton } >
+                   <AddCartButton 
+                    /> 
+                </ButtonContainer>
+                
                 : 
-                <IoBagAdd 
-                    role="button"
-                    onClick= { handleButton } 
-                />
+                    <RemoveCartButton 
+                        role="button"
+                        onClick= { handleButton } 
+                    />
             }
         </>
        

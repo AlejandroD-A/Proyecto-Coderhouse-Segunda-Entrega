@@ -6,6 +6,7 @@
   --color-green: #caffbf;
   --color-yellow: #fdffb6;
   --color-pink: #ffadad;
+  --color-white: #fffffe;
 }
 
 @font-face {
@@ -19,7 +20,6 @@ html {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
   background: var(--color-gray);
-  margin: 0 3rem;
 }
 
 *,
@@ -33,6 +33,9 @@ li,
 h1,
 h2,
 h3,
+h4,
+h5,
+h6,
 p,
 button {
   margin: 0;
@@ -46,7 +49,7 @@ ul {
   list-style: none;
 }
 body {
-  margin: 0;
+  margin: 0 5rem;
   padding: 0;
 }
 

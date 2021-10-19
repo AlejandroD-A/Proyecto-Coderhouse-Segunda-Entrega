@@ -7,17 +7,13 @@ export const Header = styled.div`
 `
 
 export const Logo = styled.div` 
-    width: 15rem;
-    border-radius: 15px;
-    background-color: var(--color-violet);
-    display:flex;
-    justify-content: center;
-    font-family: 'Ropa-Sans',sans-serif;
-    color:var(--color-black);
-    font-size: 2rem;
+   img{
+       height: 3rem;
+   }
+   margin-bottom: 1rem;
 `
 export const NavBar = styled.ul`
-    display:flex;
+    display: flex;
     li{
         margin-right: 1rem;
         cursor: pointer;
@@ -28,7 +24,6 @@ export const NavBar = styled.ul`
     .logout:hover{
             color: red;
         }
-    }
 
     .cart,.search,img {
 

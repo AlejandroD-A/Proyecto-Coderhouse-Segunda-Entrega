@@ -2,16 +2,20 @@ import PropTypes from 'prop-types'
 
 import BtnAddToCart from '../BtnAddToCart'
 
-import { Card } from './Styles'
+import { Card, ImgWrapper, ContentCard } from './Styles'
 
 function ProductCard({ product }) {
 	return (
 		<Card>
-			<BtnAddToCart idProduct = { product._id } />
-			<img src={ product.thumbnail } />
-			<h4>{ product.title }</h4>
-			<p>{ product.description }</p>
-			<h5>{ product.price }</h5>
+			<ImgWrapper src={ product.thumbnail } >
+			</ImgWrapper>
+			<ContentCard>
+				<h4>{ product.title }</h4>
+				<p>{ product.description }</p>
+				<h5>{ product.price }</h5>
+				<BtnAddToCart idProduct = { product._id } />
+			</ContentCard>
+			
 		</Card>
 	)
 }
