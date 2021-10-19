@@ -1,11 +1,12 @@
 const nodemailer = require('nodemailer')
 const logger = require('../logger')
+const config = require('../config')
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS
+        user: config.GMAIL_USER,
+        pass: config.GMAIL_PASS
     }
 });
 
@@ -14,7 +15,7 @@ const newRegister = async (data) =>{
     try{ 
         await transporter.sendMail({
             from: 'Ecommerce Ale',
-            to: process.env.GMAIL_USER,
+            to: config.GMAIL_USER,
             subject: `Nuevo registro ${data.email}`,
             html: ` <p>${data.name}</p> 
                     <p>${data.lastName}</p> 
@@ -32,7 +33,7 @@ const newOrder = async  ( user , products) => {
     try{
         await transporter.sendMail({
             from: 'Ecommerce Ale',
-            to: process.env.GMAIL_USER,
+            to: config.GMAIL_USER,
             subject: `Nuevo Pedido de ${user.name} - ${user.email}`,
             html: `
                 <h5> Usuario: </h5>

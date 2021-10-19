@@ -5,12 +5,11 @@ const passport = require('passport')
 const path = require('path')
 const persistence = require('./persistence')
 const logger = require('./logger')
-
-require('dotenv').config()
+const config = require('./config')
 
 const app = express()
 
-if(process.env.ENV == 'DEV') {
+if(config.NODE_ENV == 'development') {
   const morgan = require('morgan')
   app.use(morgan('tiny'))
 }
@@ -29,7 +28,8 @@ persistence.connectDB()
 require('./config/passport')(passport)
 
 //Sessions
-const sessionUrl  = process.env.ENV == 'DEV' ? process.env.MONGO_URL : process.env.MONGO_ATLAS_URL
+const sessionUrl  = config.ENV == 'development' ? config.MONGO_URL : config.MONGO_ATLAS_URL
+
 app.use(session({
     store: MongoStore.create({ 
       mongoUrl: `${sessionUrl}/sesiones`,
@@ -40,10 +40,9 @@ app.use(session({
     saveUninitialized: true,
   }))
 
-//- Passport 
+//Passport 
 app.use(passport.initialize())
 app.use(passport.session())
-
 
 //Routes
 app.use('/productos',require('./routes/products.routes'))
@@ -51,11 +50,12 @@ app.use('/carrito',require('./routes/cart.routes'))
 app.use('/auth', require('./routes/auth.routes'))
 app.use('/order', require('./routes/order.routes'))
 
+
 // Middleware para manejar errores
 app.use((error, req, res, next) => {
-    logger.info(error.message)
+    logger.warn(error)
     return res.status(error.code || 500).json({ error : error })
-  })
+})
 
 //Maneja Error de Ruta - Falta filtrar Api
 app.get('*', (req, res) => {
@@ -71,8 +71,8 @@ app.use((req, res, next) => {
     })
 })
 
-const PORT = process.env.PORT || 8080
+const PORT = config.PORT || 8080
 
 app.listen(PORT, () => logger.info(`Running in http://localhost:${PORT}`))
 
-app.on('error',err => logger.error(err))
+app.on('error',err => logger.warn(err))

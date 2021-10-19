@@ -1,9 +1,9 @@
-const { persistence } = require('../config')
+const config = require('../config')
 
 class PersistenceFactory{
 
-    constructor(){
-        this.persistence = persistence || 1
+    constructor(persistence){
+        this.persistence = persistence
     }
 
     getPersistence(){
@@ -11,10 +11,8 @@ class PersistenceFactory{
         if( this.persistence == 1 ) return require('./fs/FSPersistence')
         //Mongo Local
         if( this.persistence == 2 ) return require('./mongo/MongoPersistence')
-
         //Mongo Atlas
         if( this.persistence == 3 ) return require('./mongoatlas/MongoAtlasPersistence')
-
         //MySql Local
         if( this.persistence == 4 ) return require('./mysql/MySqlPersistence')
         
@@ -24,7 +22,7 @@ class PersistenceFactory{
 
 }
 
-const persistenceFactory =  new PersistenceFactory()
+const persistenceFactory = new PersistenceFactory(config.PERSISTENCE)
 
 
 module.exports = persistenceFactory.getPersistence()

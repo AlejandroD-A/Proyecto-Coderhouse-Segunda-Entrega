@@ -1,12 +1,12 @@
-const client = require('twilio')(process.env.TWILIO_ACCOUNTSID,process.env.TWILIO_AUTH_TOKEN)
+const config = require('../config')
+const client = require('twilio')(config.TWILIO_ACCOUNTSID,config.TWILIO_AUTH_TOKEN)
 const logger = require('../logger')
-
 
 const userNewOrder = async (phone) => {
     try{
          await client.messages.create({
             body: `Su pedido ha sido recibido y se encuentra en proceso`,
-            from: process.env.TWILIO_NUMBER,
+            from: config.TWILIO_NUMBER,
             to: phone
         })
     }catch(err){
