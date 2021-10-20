@@ -8,15 +8,16 @@ class OrderModel {
 
     async create(userId){
 
-        const cartProducts = await Cart.find({ user: userId },{ timestamp: false, user: false})
+        const cartProducts = await Cart.find({ user: userId }).lean().populate({ path: 'product', select: '_id title description code thumbnail price'}).exec()
         
-        const productsIds = cartProducts.map(cartItem => cartItem.product._id)
-        const newOrder  = await Order.create({ products: productsIds, user: userId })
+        if( cartProducts.length == 0 ) throw new Error('No hay productos en el carrito')
+
+        const products = cartProducts.map(cartProd =>{ return {...cartProd.product, quantity:cartProd.quantity} }  )
+        const newOrder  = await Order.create({ user: userId, products: products, number: await Order.countDocuments({}) })
         
         await Cart.deleteMany({ user: userId })
 
-        return await newOrder.populate('products',{ stock: false, __v: false }).execPopulate()
-
+        return newOrder
         }
     
 

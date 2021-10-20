@@ -1,4 +1,4 @@
-const Product = require('../schemas/ProductSchema')
+const { Product } = require('../schemas/ProductSchema')
 var ObjectId = require('mongoose').Types.ObjectId;
 
 class ProductModel{ 

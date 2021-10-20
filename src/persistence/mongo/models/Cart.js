@@ -1,4 +1,4 @@
-const productModel  = require('./Product')
+const Product = require('./Product')
 const Cart = require('../schemas/CartSchema')
 class CartModel {
     
@@ -6,7 +6,7 @@ class CartModel {
     }
 
     async get(id, userId){
-        const cartProduct = Cart.findOne({_id:id, user: userId}).populate('product')
+        const cartProduct = Cart.findOne({ _id:id, user: userId}).populate('product')
 
         return cartProduct
     }
@@ -17,7 +17,7 @@ class CartModel {
 
     async add(id_producto, userId){
 
-        const product = await productModel.get(id_producto)
+        const product = await Product.get(id_producto)
 
         if(product == undefined ) return undefined
 

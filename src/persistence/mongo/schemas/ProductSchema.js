@@ -18,4 +18,6 @@ ProductSchema.post('findOneAndDelete', async document => {
 })
 
 
-module.exports = mongoose.model('Product',ProductSchema)
+module.exports = { 
+     Product : mongoose.model('Product',ProductSchema),
+     ProductSchema : ProductSchema }

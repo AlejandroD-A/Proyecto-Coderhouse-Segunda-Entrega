@@ -13,7 +13,6 @@ require('dotenv').config({
   3- MONGOATLAS
   4- MYSQL
 */
-console.log(args.port)
 
 const persistence =  args.persistence || process.env.PERSISTENCE || 2
 module.exports = {

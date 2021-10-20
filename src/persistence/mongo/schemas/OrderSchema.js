@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { ProductSchema } = require('./ProductSchema')
 
 const OrderSchema = new mongoose.Schema({
     timestamp : 
@@ -6,6 +7,11 @@ const OrderSchema = new mongoose.Schema({
           type: Date,
           default : new Date(),
           required: true 
+        },
+    number: 
+        {
+            type: Number,
+            default: 0
         },
     user :
         { 
@@ -15,13 +21,14 @@ const OrderSchema = new mongoose.Schema({
         },    
     products :
         { 
-            type: [
-                   {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'Product',
-                    required: true} ],
+            type: [ ProductSchema ],
             default: undefined,
             required: true
+        },
+    status: 
+        {
+            type: String,
+            default: 'generada'
         }
     
 })
