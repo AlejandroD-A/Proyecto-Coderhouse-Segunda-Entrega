@@ -13,7 +13,7 @@ function ProductCard({ product }) {
 				<h4>{ product.title }</h4>
 				<p>{ product.description }</p>
 				<h5>{ product.price }</h5>
-				<BtnAddToCart idProduct = { product._id } />
+				<BtnAddToCart idProduct = { product.id } />
 			</ContentCard>
 			
 		</Card>

@@ -27,7 +27,7 @@ function BtnAddToCart({idProduct}) {
         if( !item ){
             addNew(idProduct)
         }else{
-            remove(item._id)
+            remove(item.id)
         }
 	}
     return (

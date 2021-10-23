@@ -7,7 +7,7 @@ const Cart = (prevState = initState,{ type, payload }) => {
 			...payload,
 		]
 	case '@cart/removeOne':
-		return prevState.filter(elem => elem._id !== payload._id)
+		return prevState.filter(elem => elem.id !== payload.id)
 	case '@cart/add':
 		return [ 
 			...prevState, 
