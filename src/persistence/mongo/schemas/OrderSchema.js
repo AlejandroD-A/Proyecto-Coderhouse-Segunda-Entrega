@@ -21,7 +21,7 @@ const OrderSchema = new mongoose.Schema({
         },    
     products :
         { 
-            type: [ ProductSchema ],
+            type: [ mongoose.Mixed ],
             default: undefined,
             required: true
         },
@@ -35,4 +35,5 @@ const OrderSchema = new mongoose.Schema({
 
 
 module.exports = {
-    Order : mongoose.model('Order',OrderSchema)}
+    Order : mongoose.model('Order',OrderSchema)
+}

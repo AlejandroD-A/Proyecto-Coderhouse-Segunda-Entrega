@@ -4,11 +4,10 @@ const { Cart } = require('../../mongo/schemas/CartSchema')
 const IOrderDAO = require('./IOrderDAO')
 const OrderDTO = require('../../DTOS/OrderDTO')
 
-const ObjectId = require('mongoose').Types.ObjectId;
 
 class OrderMongoDAO extends IOrderDAO {
 
-    constructor( Cart, Order, DTO ){
+    constructor( Cart, Order, DTO, ProductDTO ){
         super()
         this.CartModel = Cart
         this.OrderModel = Order
@@ -19,8 +18,6 @@ class OrderMongoDAO extends IOrderDAO {
     
     async create(user_id){
 
-        if(!ObjectId.isValid(user_id)) return undefined
-
         const cartProducts = await this.CartModel
             .find({ user: user_id })
             .lean()
@@ -28,24 +25,24 @@ class OrderMongoDAO extends IOrderDAO {
         
         if( cartProducts.length == 0 ) throw new Error('No hay productos en el carrito')
 
-        const products = cartProducts.map( cartProd => { 
+        const productsWithQuantity = cartProducts.map( cartProd => { 
             return {
                 ...cartProd.product, 
                 quantity: cartProd.quantity
             } 
         })
 
-        const newOrder  = await this.OrderModel.create(
+        const { _id, timestamp, user, products, status }  = await this.OrderModel.create(
                 { 
                     user: user_id, 
-                    products: products,
+                    products: productsWithQuantity,
                     number: await this.OrderModel.countDocuments({}) 
                 }
             )
         
         await this.CartModel.deleteMany({ user: user_id })
-                
-        return new this.DTO(newOrder).toJson()
+        
+        return new this.DTO( _id, timestamp, user, products, status).toJson()
     }
 
 }
