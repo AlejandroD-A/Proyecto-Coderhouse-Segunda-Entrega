@@ -3,7 +3,6 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const passport = require('passport')
 const path = require('path')
-const persistence = require('./persistence')
 const logger = require('./logger')
 const config = require('./config')
 
@@ -22,8 +21,6 @@ app.use(express.static(path.resolve(__dirname, '../client/build')))
 
 app.use('/uploads',express.static(path.resolve(__dirname, '../uploads')))
 
-//DB connection 
-persistence.connectDB()
 
 require('./config/passport')(passport)
 
@@ -53,6 +50,7 @@ app.use('/order', require('./routes/order.routes'))
 
 // Middleware para manejar errores
 app.use((error, req, res, next) => {
+    console.log(error)
     logger.warn(error)
     return res.status(error.code || 500).json({ error : error })
 })
@@ -75,4 +73,6 @@ const PORT = config.PORT || 8080
 
 app.listen(PORT, () => logger.info(`Running in http://localhost:${PORT}`))
 
-app.on('error',err => logger.warn(err))
+app.on('error',err =>
+  logger.warn(err)
+)

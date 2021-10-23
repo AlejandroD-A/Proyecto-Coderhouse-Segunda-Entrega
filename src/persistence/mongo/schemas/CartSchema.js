@@ -28,4 +28,6 @@ const CartSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('Cart',CartSchema)
+module.exports = {
+        Cart: mongoose.model('Cart',CartSchema)
+    } 

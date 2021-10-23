@@ -1,7 +1,5 @@
 
-const persistence = require('../persistence')
-
-const productPersis = persistence.getModel('Product')
+const ProductService = require('../services/ProductService')
 
 class ProductController{
     constructor(){
@@ -13,7 +11,7 @@ class ProductController{
 
             //Obtener Uno
             if(id){
-                const producto = await productPersis.get(id)
+                const producto = await ProductService.getById(id)
 
                 if(producto == undefined || producto == null ) return  res.status(404).json({error: 'No se encontro el producto'})
 
@@ -21,23 +19,22 @@ class ProductController{
             }
 
             //filtrar 
-
             if(Object.keys(req.query).length ){
                 let data = {}
-                const { nombre,codigo,precio,stock} = req.query
-                if(nombre) data.nombre = nombre
-                if(codigo) data.codigo = codigo
-                if(precio) data.precio = precio
+                const { title,code,price,stock} = req.query
+                if(title) data.title = title
+                if(code) data.code = code
+                if(price) data.price = price
                 if(stock) data.stock = stock
 
-                const productos = await productPersis.filter(data)
+                const productos = await ProductService.filter(data)
 
                 return res.json({ productos : productos })
 
             }
 
             //Obtener Todos
-            const productos = await productPersis.getAll()
+            const productos = await ProductService.getAll()
 
             return res.json({ productos : productos })
     
@@ -50,7 +47,7 @@ class ProductController{
     async agregar(req,res){
         try {
             const data = req.body
-            const producto = await productPersis.create(data)
+            const producto = await ProductService.save(data)
 
             return res.json({ producto: producto })
 
@@ -64,7 +61,7 @@ class ProductController{
             const data = req.body
             const id = req.params.id
 
-            const producto = await productPersis.update(id,data)
+            const producto = await ProductService.update(id,data)
 
             if( producto == undefined || producto == null ){
                 return res.status(404).json({error: 'No se encontro el producto'})
@@ -77,7 +74,7 @@ class ProductController{
     }
     async borrar (req,res){
         try{
-            const producto = await productPersis.remove(req.params.id)
+            const producto = await ProductService.delete(req.params.id)
     
             if( producto == undefined || producto == null ) return  res.status(404).json({error: 'No se encontro el producto'})
     

@@ -48,8 +48,5 @@ UserSchema.pre('save',async function(next){
     next()
 })
 
-UserSchema.methods.verifyPassword = function (password) {
-    return bcrypt.compareSync(password, this.password)
-}
-
-module.exports = mongoose.model('User',UserSchema)
+module.exports = {
+    User: mongoose.model('User',UserSchema) }

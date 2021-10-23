@@ -1,19 +1,19 @@
 const LocalStrategy = require('passport-local').Strategy
-const User = require('../persistence/mongo/schemas/UserSchema')
+const UserService = require('../services/UserService')
 
-const Mail = require('../messaging/mail')
 const logger = require('../logger')
 
 
 module.exports = ( passport ) => {
 
     passport.serializeUser(function(user, done) {
-        done(null,user._id)
+        done(null, user.id)
     })
 
     passport.deserializeUser(async function (id, done) {
         try{
-            const user = await User.findById(id, {__v: false, password: false })
+            const user = await UserService.getById(id)
+            if(user == undefined) return done(null, false)
             done(null ,user)
         }catch(err){
             done(err,null)
@@ -26,7 +26,7 @@ module.exports = ( passport ) => {
         passReqToCallback: true
     },  async (req, email, password, done) => {
             try{
-                let user = await User.findOne({ email: email })
+                let user = await UserService.getOneBy({email: email})
                 if (user) return done( null, false, logger.info("User Already Exists"))
                 if (!req.file) return done( null, false, logger.info("No se envio una imagen"))
                 const data = req.body
@@ -39,13 +39,10 @@ module.exports = ( passport ) => {
                     phone :data.phone,
                     avatar :req.file.path
                 }
-
-                user = await User.create(dataUser)
-
-                await Mail.newRegister(user)
-
+                user = await UserService.register(dataUser)
                 return done(null, user)
             }catch(err){
+                console.log(err)
                 logger.info(err)
                 done(err)
             }
@@ -61,11 +58,12 @@ module.exports = ( passport ) => {
         async (req,email,password,done) => {
 
             try{   
-                let user = await User.findOne({email: email})
+                let user = await UserService.getOneBy({email: email},true)
 
                 if(!user) return done( null, false, console.log("message","User doesn't exist"))
 
-                if( !user.verifyPassword(password) ) return done(null,false, console.log("message","Password doesn't  match with the record")) 
+                if(!UserService.verifyPassword(user.password, password)) return done( null, false, console.log("message","Password doesn't match"))
+               
                 return done(null, user)
             }catch(err){
                 done(err)
