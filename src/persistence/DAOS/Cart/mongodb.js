@@ -3,16 +3,17 @@ const { Product } = require('../../mongo/schemas/ProductSchema')
 
 const ICartDAO = require('./ICartDAO')
 const CartDTO = require('../../DTOS/CartDTO')
-
+const ProductDTO = require('../../DTOS/ProductDTO')
 const ObjectId = require('mongoose').Types.ObjectId;
 
 class CartMongoDAO extends ICartDAO {
 
-    constructor( Cart,Product,DTO ){
+    constructor( Cart, Product, DTO, ProductDTO ){
         super()
         this.CartModel = Cart
         this.ProductModel = Product
         this.DTO = DTO
+        this.ProductDTO = ProductDTO
 
         require('../../mongo/connection')
     }
@@ -36,7 +37,15 @@ class CartMongoDAO extends ICartDAO {
                 cartItem._id,
                 cartItem.timestamp,
                 cartItem.userId,
-                cartItem.product,
+                new this.ProductDTO(
+                    cartItem.product._id,
+                    cartItem.product.timestamp,
+                    cartItem.product.title,
+                    cartItem.product.description,
+                    cartItem.product.code,
+                    cartItem.product.thumbnail,
+                    cartItem.product.price,
+                    cartItem.product.stock).toJson(),
                 cartItem.quantity
                 ).toJson()
             )
@@ -51,8 +60,18 @@ class CartMongoDAO extends ICartDAO {
         const newCart  = await this.CartModel.create({ product: id_producto, user: user_id })
 
         const { _id, timestamp, userId, product, quantity } = await newCart.populate('product').execPopulate()
+        
+        const productDTO =  new this.ProductDTO(
+            product._id,
+            product.timestamp,
+            product.title,
+            product.description,
+            product.code,
+            product.thumbnail,
+            product.price,
+            product.stock).toJson()
 
-        return new this.DTO(_id, timestamp, userId, product, quantity).toJson()
+        return new this.DTO(_id, timestamp, userId, productDTO, quantity).toJson()
     }
 
     async remove(id, user_id ){
@@ -61,11 +80,22 @@ class CartMongoDAO extends ICartDAO {
         if(!deletedItem) return undefined
 
         const { _id, timestamp, userId, product, quantity } = deletedItem
-        return new this.DTO(_id, timestamp, userId, product, quantity).toJson()
+
+        const productDTO =  new this.ProductDTO(
+            product._id,
+            product.timestamp,
+            product.title,
+            product.description,
+            product.code,
+            product.thumbnail,
+            product.price,
+            product.stock).toJson()
+
+        return new this.DTO(_id, timestamp, userId, productDTO, quantity).toJson()
     }
 
     
 
 }
 
-module.exports = new CartMongoDAO( Cart, Product,CartDTO)
+module.exports = new CartMongoDAO( Cart, Product,CartDTO, ProductDTO)
