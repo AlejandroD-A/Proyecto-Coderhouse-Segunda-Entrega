@@ -13,7 +13,7 @@ function BtnAddToCart({idProduct}) {
     const isAdded = useCallback(
         () => {
             if(!isLogged) return false
-            let itemCart = cartItems.find( (cartProduct)=> cartProduct.product._id == idProduct )
+            let itemCart = cartItems.find( (cartProduct)=> cartProduct.product.id == idProduct )
             return itemCart
         }   
         ,[cartItems]
