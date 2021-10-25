@@ -18,9 +18,7 @@ app.use(express.urlencoded({
     extended : true
 }))
 app.use(express.static(path.resolve(__dirname, '../client/build')))
-
 app.use('/uploads',express.static(path.resolve(__dirname, '../uploads')))
-
 
 require('./config/passport')(passport)
 
@@ -42,11 +40,13 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //Routes
-app.use('/productos',require('./routes/products.routes'))
-app.use('/carrito',require('./routes/cart.routes'))
 app.use('/auth', require('./routes/auth.routes'))
-app.use('/order', require('./routes/order.routes'))
 
+//Api Routes
+app.use('/api/productos',require('./routes/api/products.routes'))
+app.use('/api/carrito',require('./routes/api/cart.routes'))
+app.use('/api/order', require('./routes/api/order.routes'))
+app.use('/api/auth', require('./routes/api/auth.routes'))
 
 // Middleware para manejar errores
 app.use((error, req, res, next) => {
@@ -55,7 +55,7 @@ app.use((error, req, res, next) => {
     return res.status(error.code || 500).json({ error : error })
 })
 
-//Maneja Error de Ruta - Falta filtrar Api
+//Maneja Error de Ruta
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });

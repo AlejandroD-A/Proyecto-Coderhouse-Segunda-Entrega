@@ -21,6 +21,7 @@ module.exports = {
     PORT: args.port || '8080',
     PERSISTENCE: persistence,
     CLUSTER: args.cluster,
+    SECRETJWT: process.env.SECRETJWT || 'secret',
 
     MONGO_URL: process.env.MONGO_URL || 'mongodb://localhost:27017' ,
     MONGO_ATLAS_URL: process.env.MONGO_ATLAS_URL,

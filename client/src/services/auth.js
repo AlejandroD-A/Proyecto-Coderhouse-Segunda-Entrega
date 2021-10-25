@@ -51,7 +51,7 @@ export const logout = async ()=> {
 
 export const getUser = async ()=> {
 	try{
-		const res = await fetch('/auth/user')
+		const res = await fetch('api/auth/user')
 		const jsonData = await res.json()
 		if (!res.ok) throw new Error('Ha ocurrido un Error')
 		return jsonData

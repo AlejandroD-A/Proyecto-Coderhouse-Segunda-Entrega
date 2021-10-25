@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const mdwCheckAdmin = require('../middlewares/checkAdmin')
-const productCtrl = require('../controllers/ProductController')
+const mdwCheckAdmin = require('../../middlewares/checkAdmin')
+const productCtrl = require('../../controllers/ProductController')
 
 router.get('/:id?', productCtrl.listar )
 router.post('/', mdwCheckAdmin, productCtrl.agregar )

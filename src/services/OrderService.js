@@ -21,7 +21,7 @@ class OrderService{
 
         //Envio de Sms a User
         await Sms.userNewOrder(user.phone)
-
+        
         logger.info(`Se ha creado un nuevo Pedido,${order.number}, usuario: ${user.email}`)
 
         return order

@@ -1,6 +1,6 @@
 export  const getAll = async ()=>{
 	try{
-		const data = await fetch('/carrito')
+		const data = await fetch('api/carrito')
 		const jsonData = await data.json()
 		return jsonData.cart
 
@@ -11,7 +11,7 @@ export  const getAll = async ()=>{
 
 export const addNew = async (id)=> {
 	try{
-		const data = await fetch(`/carrito/${id}`,{
+		const data = await fetch(`api/carrito/${id}`,{
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ export const addNew = async (id)=> {
 
 export const remove = async (id)=> {
 	try{
-		const data = await fetch(`/carrito/${id}`,{
+		const data = await fetch(`api/carrito/${id}`,{
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ export const remove = async (id)=> {
 
 export const confirm = async ()=> {
 	try{
-		const data = await fetch(`/order`,{
+		const data = await fetch(`api/order`,{
 			method: 'POST'
 		})
 		const jsonData = await data.json()
