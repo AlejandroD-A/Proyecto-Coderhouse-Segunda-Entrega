@@ -12,7 +12,9 @@ require('dotenv').config({
   2- MONGO
   3- MONGOATLAS
   4- MYSQL
+
 */
+
 
 const persistence =  args.persistence || process.env.PERSISTENCE || 2
 module.exports = {
@@ -22,6 +24,9 @@ module.exports = {
     PERSISTENCE: persistence,
     CLUSTER: args.cluster,
     SECRETJWT: process.env.SECRETJWT || 'secret',
+
+    SESSION_TIME: args.sessionTime || 60 * 100,
+    SESSION_SECRET: process.env.SESSION_SECRET || 'secret',
 
     MONGO_URL: process.env.MONGO_URL || 'mongodb://localhost:27017' ,
     MONGO_ATLAS_URL: process.env.MONGO_ATLAS_URL,

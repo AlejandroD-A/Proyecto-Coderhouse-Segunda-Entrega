@@ -28,9 +28,9 @@ const sessionUrl  = config.ENV == 'development' ? config.MONGO_URL : config.MONG
 app.use(session({
     store: MongoStore.create({ 
       mongoUrl: `${sessionUrl}/sesiones`,
-      ttl: 60 * 10 
+      ttl: config.SESSION_TIME 
     }),
-    secret: 'secreto',
+    secret: config.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
   }))
