@@ -39,6 +39,7 @@ module.exports = ( passport ) => {
                     phone :data.phone,
                     avatar :req.file.path
                 }
+
                 user = await UserService.register(dataUser)
                 return done(null, user)
             }catch(err){
@@ -58,11 +59,9 @@ module.exports = ( passport ) => {
         async (req,email,password,done) => {
 
             try{   
-                let user = await UserService.getOneBy({email: email},true)
+                let user = await UserService.login(email, password)
 
-                if(!user) return done( null, false, console.log("message","User doesn't exist"))
-
-                if(!UserService.verifyPassword(user.password, password)) return done( null, false, console.log("message","Password doesn't match"))
+                if(!user) return done( null, false, logger.info("Invalid Credentials") )
                
                 return done(null, user)
             }catch(err){

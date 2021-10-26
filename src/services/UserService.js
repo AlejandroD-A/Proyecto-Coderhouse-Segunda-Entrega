@@ -1,8 +1,8 @@
 const User = require('../persistence/PersistenceFactory')('User')
 const Mail = require('../messaging/mail')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const { SECRETJWT } = require('../config')
+const { generateToken } = require('../utils/AuthJWT')
+
 
 class UserService{
     constructor(UserModel){
@@ -21,18 +21,38 @@ class UserService{
         return await this.UserModel.save(data)
     }
 
+    async login(email, password){
+        try{ 
+            let user = await this.UserModel.getOneBy( { email: email }, true )
+            
+            if(!user) return undefined 
+                
+            if( !bcrypt.compareSync(password, user.password) ) return undefined
+                
+            delete user.password
+
+            const token = await generateToken(user)
+
+            user.token = token 
+
+            return user
+
+        }catch(err){
+            throw err
+        }
+       
+    }
     async register(dataUser){
         const user = await this.UserModel.save(dataUser)
         await Mail.newRegister(user)
-        return user
-    }
-    
-    verifyPassword(hashPass, pass){
-        return bcrypt.compareSync(pass, hashPass)
-    }
+        
+        delete user.password
 
-    generateToken(user) {
-        return jwt.sign({ data: user }, SECRETJWT, { expiresIn: '10m' });
+        const token = await generateToken(user)
+
+        user.token = token 
+
+        return user
     }
 
 }
