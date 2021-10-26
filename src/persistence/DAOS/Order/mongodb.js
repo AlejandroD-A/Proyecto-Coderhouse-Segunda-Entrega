@@ -32,7 +32,7 @@ class OrderMongoDAO extends IOrderDAO {
             } 
         })
 
-        const { _id, timestamp, user, products, status }  = await this.OrderModel.create(
+        const { _id, timestamp, user, products, number, status }  = await this.OrderModel.create(
                 { 
                     user: user_id, 
                     products: productsWithQuantity,
@@ -42,7 +42,7 @@ class OrderMongoDAO extends IOrderDAO {
         
         await this.CartModel.deleteMany({ user: user_id })
         
-        return new this.DTO( _id, timestamp, user, products, status).toJson()
+        return new this.DTO( _id, timestamp, user, products, number, status).toJson()
     }
 
 }

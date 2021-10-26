@@ -4,13 +4,15 @@ class CartDTO {
     #timestamp
     #user
     #products
+    #number
     #status
 
-    constructor(  id, timestamp, user, products, status ) {
+    constructor(  id, timestamp, user, products, number, status ) {
         this.#id = id;
         this.#timestamp = timestamp;
         this.#user = user;
         this.#products = products;
+        this.#number = number;
         this.#status = status;
       
     }
@@ -28,6 +30,7 @@ class CartDTO {
             timestamp: this.#timestamp,
             user: this.#user,
             products: this.#products,
+            number: this.#number,
             status: this.#status,
         }
     }
