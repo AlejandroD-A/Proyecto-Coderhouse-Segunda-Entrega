@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer')
 const logger = require('../logger')
 const config = require('../config')
 const ejs = require('ejs');
-const { NetworkContext } = require('twilio/lib/rest/supersim/v1/network');
 
 const GmailTransporter = nodemailer.createTransport({
     service: 'gmail',
@@ -23,12 +22,10 @@ const MailtrapTransporter = nodemailer.createTransport({
 
 const transporter = config.NODE_ENV == 'development' ? MailtrapTransporter : GmailTransporter
 
-
 class MailSender{
     constructor(transporter){
         this.transporter = transporter
     }
-
     async newRegister(data){
         try{ 
             await this.transporter.sendMail({
@@ -77,19 +74,19 @@ class MailSender{
             ejs.renderFile(__dirname+'/templates/errorTemplate.ejs', { error: err },{},(err,str) => {
                 if(err) throw err
                 html = str
-            });
-    
+            })
+
             await this.transporter.sendMail({
                 from: 'Ecommerce Ale',
                 to: config.GMAIL_USER,
                 subject: `Ha Ocurrido un Error`,
                 html: html
             })
-    
+            
             return logger.info(`Se ha enviado el mail de Error`)
         }catch(err){
             return logger.error(err.message)
-             
+               
         }
     }
 
