@@ -5,21 +5,30 @@ const passport = require('passport')
 const path = require('path')
 const logger = require('./logger')
 const config = require('./config')
+const handleErrors = require('./middlewares/handleErrors')
+const { sendEmailError } = require('./messaging/mail')
 
 const app = express()
+
+// Logger Request
 
 if(config.NODE_ENV == 'development') {
   const morgan = require('morgan')
   app.use(morgan('tiny'))
 }
 
+
 app.use(express.json())
 app.use(express.urlencoded({
     extended : true
 }))
+
+// Static Files 
 app.use(express.static(path.resolve(__dirname, '../client/build')))
 app.use('/uploads',express.static(path.resolve(__dirname, '../uploads')))
 
+
+// Passport 
 require('./config/passport')(passport)
 
 //Sessions
@@ -35,7 +44,7 @@ app.use(session({
     saveUninitialized: true,
   }))
 
-//Passport 
+//Passport Middlewares
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -49,11 +58,7 @@ app.use('/api/order', require('./routes/api/order.routes'))
 app.use('/api/auth', require('./routes/api/auth.routes'))
 
 // Middleware para manejar errores
-app.use((error, req, res, next) => {
-    console.log(error)
-    logger.warn(error)
-    return res.status(error.code || 500).json({ error : error })
-})
+app.use(handleErrors)
 
 //Maneja Error de Ruta
 app.get('*', (req, res) => {
@@ -73,6 +78,8 @@ const PORT = config.PORT || 8080
 
 app.listen(PORT, () => logger.info(`Running in http://localhost:${PORT}`))
 
-app.on('error',err =>
-  logger.warn(err)
+app.on('error',async err =>{
+  logger.warn(err.message, err)
+  await sendEmailError(error)
+  }
 )

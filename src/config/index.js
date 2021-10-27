@@ -40,6 +40,9 @@ module.exports = {
     GMAIL_USER: process.env.GMAIL_USER,
     GMAIL_PASS: process.env.GMAIL_PASS,
 
+    MAILTRAP_USER: process.env.MAILTRAP_USER,
+    MAILTRAP_PASS: process.env.MAILTRAP_PASS,
+
     TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
     TWILIO_WHATSAPP: process.env.TWILIO_WHATSAPP,

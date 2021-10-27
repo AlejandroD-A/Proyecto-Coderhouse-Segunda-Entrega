@@ -1,8 +1,9 @@
 const nodemailer = require('nodemailer')
 const logger = require('../logger')
 const config = require('../config')
+const ejs = require('ejs')
 
-const transporter = nodemailer.createTransport({
+const GmailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: config.GMAIL_USER,
@@ -10,6 +11,16 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+const MailtrapTransporter = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: config.MAILTRAP_USER,
+      pass: config.MAILTRAP_PASS
+    }
+});
+
+const transporter = config.NODE_ENV == 'development' ? MailtrapTransporter : GmailTransporter
 
 const newRegister = async (data) =>{
     try{ 
@@ -54,4 +65,27 @@ const newOrder = async  ( user , products) => {
     
 }
 
-module.exports = { newRegister, newOrder }
+const sendEmailError = async (err) =>{
+    try{
+        let html = ""
+        ejs.renderFile(__dirname+'/templates/errorTemplate.ejs', { error: err },{},(err,str) => {
+            if(err) throw err
+            html = str
+        });
+        console.log(err)
+
+        await transporter.sendMail({
+            from: 'Ecommerce Ale',
+            to: config.GMAIL_USER,
+            subject: `Ha Ocurrido un Error`,
+            html: html
+        })
+
+        logger.info(`Se ha enviado el mail de Error`)
+    }catch(err){
+        console.log(err)
+        logger.error(err.message)
+    }
+}
+
+module.exports = { newRegister, newOrder, sendEmailError }
