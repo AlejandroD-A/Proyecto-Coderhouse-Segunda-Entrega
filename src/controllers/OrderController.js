@@ -13,7 +13,6 @@ class OrderController{
             return res.json({ message : 'Success', order: order })
 
         }catch(err){
-            console.log(err)
             logger.error(err)
             return res.status(500).json({ error: 'Ha ocurrido un error' })
         }   

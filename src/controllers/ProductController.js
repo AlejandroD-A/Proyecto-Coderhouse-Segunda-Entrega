@@ -1,4 +1,5 @@
 
+const logger = require('../logger')
 const ProductService = require('../services/ProductService')
 
 class ProductController{
@@ -39,7 +40,7 @@ class ProductController{
             return res.json({ productos : productos })
     
         }catch(err){
-            console.log(err)
+            logger.info(err.message, err.stack)
             return res.status(500).json({error: 'Ha ocurrido un error'})
         }
     }
@@ -52,6 +53,7 @@ class ProductController{
             return res.json({ producto: producto })
 
         }catch(err){
+            logger.info(err.message, err.stack)
             return res.status(500).json({error: 'Ha ocurrido un error'})
         }
     }

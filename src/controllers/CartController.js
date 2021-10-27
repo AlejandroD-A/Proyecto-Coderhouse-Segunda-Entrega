@@ -22,7 +22,6 @@ class CartController{
 
     async agregar(req,res){
         try{
-            console.log(req.user)
             const cartProduct = await CartService.add(req.params.id_producto, req.user.id)
             
             if(cartProduct == null || cartProduct == undefined ) return  res.json({error: 'No se encuentra ese producto'})
@@ -30,7 +29,6 @@ class CartController{
             return res.json({producto : cartProduct})
     
         }catch(err){
-            console.log(err)
             return res.status(500).json({error: 'Ha ocurrido un error'})
         }
        
