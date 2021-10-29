@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 function validateRequest(req, next, schema){
     const options = {
         abortEarly: false,
@@ -9,7 +11,15 @@ function validateRequest(req, next, schema){
         const validationError = new Error()
         validationError.name = "ValidationError"
         validationError.message = error.details.map(x => x.message).join(', ')
-        
+        if(req.file.path){
+            console.log(req.file.path)
+            fs.unlink(req.file.path, (err)=>{
+                if(err){
+                    console.error(err)
+                    return
+                }
+            })
+        }
         next(validationError)
     } else {
         req.body = value;

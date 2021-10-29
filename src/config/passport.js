@@ -2,7 +2,7 @@ const LocalStrategy = require('passport-local').Strategy
 const UserService = require('../services/UserService')
 
 const logger = require('../logger')
-
+const fs = require('fs')
 
 module.exports = ( passport ) => {
 
@@ -27,9 +27,18 @@ module.exports = ( passport ) => {
     },  async (req, email, password, done) => {
             try{
                 let user = await UserService.getOneBy({email: email})
-                if (user) return done( null, false, logger.info("User Already Exists"))
+                if (user){
+                    fs.unlink(req.file.path, (err) => {
+                        if(err) logger.error(err)
+                        return 
+                    })
+                    return done( null, false, logger.info("User Already Exists"))
+                } 
+
                 if (!req.file) return done( null, false, logger.info("No se envio una imagen"))
+                
                 const data = req.body
+                
                 const dataUser = {
                     email : data.email,
                     password : data.password,
@@ -43,7 +52,6 @@ module.exports = ( passport ) => {
                 user = await UserService.register(dataUser)
                 return done(null, user)
             }catch(err){
-                console.log(err)
                 logger.info(err)
                 done(err)
             }

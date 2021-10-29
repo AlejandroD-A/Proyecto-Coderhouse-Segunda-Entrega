@@ -3,12 +3,13 @@ const router = express.Router()
 const passport = require('passport')
 const multer = require('../middlewares/multer')
 const checkAuth = require('../middlewares/checkAuth')
+const { registerValidator, loginValidator } = require('../middlewares/validator/userValidator')
 
-router.post('/signup', multer.single('avatar'), passport.authenticate('signup' ), async (req,res) => {
+router.post('/signup', multer.single('avatar'), registerValidator, passport.authenticate('signup' ), async (req,res) => {
     res.json({ message:"Success", user: req.user })
 })
 
-router.post('/login', passport.authenticate('login' ), async (req,res) => {
+router.post('/login', passport.authenticate('login' ), loginValidator, async (req,res) => {
     res.json({ message:"Success", user: req.user })
 })
 
