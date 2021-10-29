@@ -25,10 +25,9 @@ const loggerError = winston.createLogger({
              filename: __dirname + '/logs/error.log', 
              level: 'error', 
              format:  winston.format.combine(
-            winston.format.errors({ stack: true}),
-               winston.format.colorize(),
-               winston.format.timestamp(), 
-               winston.format.prettyPrint()
+                winston.format.errors({ stack: true}),
+                winston.format.timestamp(), 
+                winston.format.prettyPrint()
              )})
     ]
 })
@@ -46,12 +45,10 @@ const loggerWarn = winston.createLogger({
             filename: __dirname + '/logs/warn.log', 
             level: 'warn', 
             format:  winston.format.combine(
-               winston.format.errors({ stack: true}),
-               winston.format.colorize(),
-               winston.format.timestamp(), 
-               winston.format.prettyPrint()
-            )
-           }),
+                winston.format.errors({ stack: true}),
+                winston.format.timestamp(), 
+                winston.format.prettyPrint()
+             )})
     ]
 })
 
