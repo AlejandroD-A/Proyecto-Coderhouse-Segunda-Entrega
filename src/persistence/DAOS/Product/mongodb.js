@@ -97,7 +97,7 @@ class ProductMongoDAO extends IProductDAO {
             
          if(!entity) return undefined
  
-         await this.model.deleteOne({ _id: id})
+         await this.model.findOneAndDelete({ _id: id})
 
          return entity
        

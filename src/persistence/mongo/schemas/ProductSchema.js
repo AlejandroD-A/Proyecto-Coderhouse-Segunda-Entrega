@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Cart = require('./CartSchema')
+const { Cart } = require('./CartSchema')
 
 const ProductSchema = new mongoose.Schema({
     timestamp : {type: Date, default : new Date(), required: true },
