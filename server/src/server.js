@@ -26,7 +26,7 @@ app.use(express.urlencoded({
 app.use(cors())
 
 // Static Files 
-app.use(express.static(path.resolve(__dirname, '../../client/build')))
+app.use(express.static(path.resolve(__dirname, 'public/build')))
 app.use('/uploads',express.static(path.resolve(__dirname, '../uploads')))
 
 
@@ -64,7 +64,7 @@ app.use(handleErrors)
 
 //Maneja Error de Ruta
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'public/build', 'index.html'));
 });
 
 //Error de Ruta
