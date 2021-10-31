@@ -20,7 +20,7 @@ const persistence =  args.persistence || process.env.PERSISTENCE || 2
 module.exports = {
     NODE_ENV: process.env.NODE_ENV || 'development',
     HOST: process.env.HOST || 'localhost',
-    PORT: args.port || '8080',
+    PORT: args.port || process.env.PORT || '8080',
     PERSISTENCE: persistence,
     CLUSTER: args.cluster,
     SECRETJWT: process.env.SECRETJWT || 'secret',
