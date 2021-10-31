@@ -9,7 +9,7 @@ class PersistenceFactory {
             //Mongo Local
             if( persistence == 2 ) return require(`./DAOS/${modelName}/mongodb`)
             //Mongo Atlas
-            if( persistence == 3 ) return require(`./DAOS/${modelName}/mongoAtlas`)
+            if( persistence == 3 ) return require(`./DAOS/${modelName}/mongodb`)
             //MySql Local
             if( persistence == 4 ) return require(`./DAOS/${modelName}/mysql`)
 
