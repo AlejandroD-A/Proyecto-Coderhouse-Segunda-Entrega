@@ -22,12 +22,24 @@ class CartMongoDAO extends ICartDAO {
 
         if(!ObjectId.isValid(id)) return undefined
 
-        const cartProduct = this.CartModel.findOne({ _id:id, user: user_id}).populate('product').lean()
-        if(!cartProduct) return undefined
+        const cartItem =await this.CartModel.findOne({ _id:id, user: user_id}).populate('product').lean()
+        if(!cartItem) return undefined
 
-        const  { _id, timestamp, userId, products } = cartProduct
-
-        return new this.DTO( _id,timestamp, userId, products ).toJson()
+        return  new this.DTO( 
+            cartItem._id,
+            cartItem.timestamp,
+            cartItem.user,
+            new this.ProductDTO(
+                cartItem.product._id,
+                cartItem.product.timestamp,
+                cartItem.product.title,
+                cartItem.product.description,
+                cartItem.product.code,
+                cartItem.product.thumbnail,
+                cartItem.product.price,
+                cartItem.product.stock).toJson(),
+            cartItem.quantity
+            ).toJson()
     }
 
     async getAll(user_id){
@@ -36,7 +48,7 @@ class CartMongoDAO extends ICartDAO {
             new this.DTO( 
                 cartItem._id,
                 cartItem.timestamp,
-                cartItem.userId,
+                cartItem.user,
                 new this.ProductDTO(
                     cartItem.product._id,
                     cartItem.product.timestamp,
@@ -51,15 +63,18 @@ class CartMongoDAO extends ICartDAO {
             )
     }
 
-    async add(id_producto, user_id){
+    async add(id_producto, quantitySetted , user_id){
 
+       
         const productData = await this.ProductModel.findById(id_producto)
-
+        
+        if(await this.#isProductInCart(id_producto, user_id)) return undefined 
+        
         if( productData == undefined ) return undefined
 
-        const newCart  = await this.CartModel.create({ product: id_producto, user: user_id })
+        const newCart  = await this.CartModel.create({ product: id_producto, user: user_id, quantity : quantitySetted })
 
-        const { _id, timestamp, userId, product, quantity } = await newCart.populate('product').execPopulate()
+        const { _id, timestamp, user, product, quantity } = await newCart.populate('product').execPopulate()
         
         const productDTO =  new this.ProductDTO(
             product._id,
@@ -71,11 +86,25 @@ class CartMongoDAO extends ICartDAO {
             product.price,
             product.stock).toJson()
 
-        return new this.DTO(_id, timestamp, userId, productDTO, quantity).toJson()
+        return new this.DTO(_id, timestamp, user, productDTO, quantity).toJson()
+    }
+    
+    async #isProductInCart(id_producto, user_id){
+        const res = await this.CartModel.findOne({ product:id_producto, user: user_id})
+        if(res == undefined ) return false
+        return res 
+    }
+
+    async update(id, data, user_id){
+
+        const updated  = await this.CartModel.updateOne({ _id: id, user: user_id },{ $set: data })
+        if(!updated) return undefined
+        
+        return await this.get(id, user_id)
     }
 
     async remove(id, user_id ){
-        const deletedItem = await Cart.findOneAndDelete({_id:id, user: user_id}).populate('product')
+        const deletedItem = await this.CartModel.findOneAndDelete({_id:id, user: user_id}).populate('product')
 
         if(!deletedItem) return undefined
 

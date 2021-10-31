@@ -11,8 +11,11 @@ class CartService {
     async getAll(userId){
         return await this.cartModel.getAll(userId)
     }
-    async add(productId, userId){
-        return await this.cartModel.add(productId, userId)
+    async add( productId, quantity, userId){
+        return await this.cartModel.add(productId, quantity, userId)
+    }
+    async updateQuantity( productId, quantity, userId){
+        return await this.cartModel.update(productId, { quantity: quantity }, userId)
     }
     async remove(productCartId, userId){
         return await this.cartModel.remove(productCartId, userId)

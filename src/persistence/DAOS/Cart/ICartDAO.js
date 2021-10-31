@@ -8,9 +8,14 @@ module.exports = class ICartDAO{
         throw new Error('Cart - getAll not Implemented')
     }
 
-    async add(id_producto, userId){
+    async add(id_producto, quantity, userId){
 
         throw new Error('Cart - add not Implemented')
+    }
+
+    async update(id, data, userId){
+
+        throw new Error('Cart - update not Implemented')
     }
 
     async remove(id, userId ){

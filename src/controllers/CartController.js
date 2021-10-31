@@ -7,7 +7,7 @@ class CartController{
         try{
             const id = req.params.id
             if( !id ) return res.json( { cart: await CartService.getAll(req.user.id) })
-        
+            
             const cartProduct =  await CartService.get(id, req.user.id)
         
             if( cartProduct == undefined ) return res.json({error: 'No se encontro el articulo en el carrito'})
@@ -15,6 +15,7 @@ class CartController{
             return res.json({cartProduct: cartProduct})
 
         }catch(err){
+            console.log(err)
             return res.status(500).json({error: 'Ha ocurrido un error'})
         }
         
@@ -22,16 +23,37 @@ class CartController{
 
     async agregar(req,res){
         try{
-            const cartProduct = await CartService.add(req.params.id_producto, req.user.id)
-            
-            if(cartProduct == null || cartProduct == undefined ) return  res.json({error: 'No se encuentra ese producto'})
+            const { id_producto } = req.params
+            const { quantity = 1 } = req.query
+            const cartProduct = await CartService.add(id_producto, quantity, req.user.id)
+
+            if(cartProduct == null || cartProduct == undefined ) return res.json({error: 'El producto no existe o ya se encuentra en el carrito'})
     
-            return res.json({producto : cartProduct})
+            return res.json({ producto : cartProduct })
     
         }catch(err){
+            
+            console.error(err)
             return res.status(500).json({error: 'Ha ocurrido un error'})
         }
        
+    }
+
+    async actualizarCantidad(req, res ){
+        try{
+            const { id } = req.params
+            const { quantity } = req.query
+    
+            const cartProduct = await CartService.updateQuantity(id, quantity, req.user.id)
+            console.log(cartProduct)
+            if(cartProduct == undefined ) return res.status(400).json({message: 'Ha ocurrido un error'})
+            
+            return res.json({producto : cartProduct}) 
+        }catch(err){
+            console.error(err)
+            return res.status(500).json({error: 'Ha ocurrido un error'})
+        }
+        
     }
 
     async borrar(req,res){
