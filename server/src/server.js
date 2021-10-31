@@ -1,4 +1,5 @@
 const express = require ('express')
+
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const passport = require('passport')
@@ -6,12 +7,12 @@ const path = require('path')
 const logger = require('./logger')
 const config = require('./config')
 const handleErrors = require('./middlewares/handleErrors')
+const cors =  require('cors')
 const { sendEmailError } = require('./messaging/mail')
 
 const app = express()
 
-// Logger Request
-
+// Request Logger
 if(config.NODE_ENV == 'development') {
   const morgan = require('morgan')
   app.use(morgan('tiny'))
@@ -22,9 +23,10 @@ app.use(express.json())
 app.use(express.urlencoded({
     extended : true
 }))
+app.use(cors())
 
 // Static Files 
-app.use(express.static(path.resolve(__dirname, '../client/build')))
+app.use(express.static(path.resolve(__dirname, '../../client/build')))
 app.use('/uploads',express.static(path.resolve(__dirname, '../uploads')))
 
 
@@ -62,7 +64,7 @@ app.use(handleErrors)
 
 //Maneja Error de Ruta
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
 });
 
 //Error de Ruta
