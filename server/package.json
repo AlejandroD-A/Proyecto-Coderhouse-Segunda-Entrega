@@ -6,7 +6,7 @@
   "scripts": {
     "start": "set NODE_ENV=production&& node ./src/index.js --",
     "dev": "set NODE_ENV=development && node ./src/index.js --",
-    "build": " cd ../client && npm install && npm run build",
+    "build": "cd ../client && npm install && npm run build",
     "prod": "set NODE_ENV=production&& node ./src/index.js --",
     "watch": "set NODE_ENV=development&& nodemon ./src/index.js",
     "mysql:migrate": "node ./src/persistence/mysql/migration.js",
