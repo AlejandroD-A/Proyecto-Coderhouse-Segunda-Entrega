@@ -8,7 +8,6 @@ const isAuth = async (req,res,next) =>{
 
         //Si envia un token desde el header authorization
         let token = req.headers.authorization
-
         if (!token) {
             return res.status(403).json({message: 'debe proveer el token' });
         }

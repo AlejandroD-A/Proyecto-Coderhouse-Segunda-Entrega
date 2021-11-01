@@ -9,6 +9,7 @@ const config = require('./config')
 const handleErrors = require('./middlewares/handleErrors')
 const cors =  require('cors')
 const { sendEmailError } = require('./messaging/mail')
+const handlebars = require('express-handlebars')
 
 const app = express()
 
@@ -23,12 +24,27 @@ app.use(express.json())
 app.use(express.urlencoded({
     extended : true
 }))
-app.use(cors())
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+}))
 
 // Static Files 
-app.use(express.static(path.resolve(__dirname, 'public/build')))
+app.use(express.static(path.resolve(__dirname, 'public')))
+
 app.use('/uploads',express.static(path.resolve(__dirname, '../uploads')))
 
+//Views
+app.engine('hbs', handlebars({
+  extname: '.hbs',
+  defaultLayout: 'index.hbs',
+  layoutsDir: __dirname + '/views/layouts',
+  partialsDir: __dirname + '/views/partials'
+}))
+
+app.set('view engine', 'hbs');
+
+app.set('views', path.join(__dirname, 'views'));
 
 // Passport 
 require('./config/passport')(passport)
@@ -51,7 +67,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //Routes
+app.use('/', require('./routes/index.routes'))
 app.use('/auth', require('./routes/auth.routes'))
+
 
 //Api Routes
 app.use('/api/productos',require('./routes/api/products.routes'))
@@ -61,11 +79,6 @@ app.use('/api/auth', require('./routes/api/auth.routes'))
 
 // Middleware para manejar errores
 app.use(handleErrors)
-
-//Maneja Error de Ruta
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public/build', 'index.html'));
-});
 
 //Error de Ruta
 app.use((req, res, next) => {

@@ -16,7 +16,7 @@ require('dotenv').config({
 */
 
 
-const persistence =  args.persistence || process.env.PERSISTENCE || 2
+const persistence =  args.persistence || process.env.PERSISTENCE || 3
 module.exports = {
     NODE_ENV: process.env.NODE_ENV || 'development',
     HOST: process.env.HOST || 'localhost',
