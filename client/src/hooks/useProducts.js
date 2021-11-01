@@ -1,6 +1,6 @@
 import { useDispatch,useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { getAll } from '../services/product'
+import { getAll } from '../api/product'
 import Actions from '../store/actions'
 
 export default function useProducts(){

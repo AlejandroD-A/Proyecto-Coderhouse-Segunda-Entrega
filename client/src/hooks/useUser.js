@@ -6,7 +6,7 @@ import {
     register as registerService,
     logout as logoutService,
     getUser as getUserService,
-  } from '../services/auth'
+  } from '../api/auth'
 
 
 
@@ -19,7 +19,9 @@ export default function useUser() {
 
     const getUser = async () => {
       try{
-        const data = await getUserService()
+        const token = localStorage.getItem('token')
+
+        const data = await getUserService(token)
         dispatch(Actions.User.save(data.user))
       }catch(err){
         console.error(err)
@@ -34,6 +36,9 @@ export default function useUser() {
             const data = await loginService({ email,password })
 
             dispatch(Actions.User.save(data.user))
+            
+            localStorage.setItem('token',data.user.token)
+
             setState({ loading: false, error:false })
           }catch(err){
             setState({ loading: false, error: 'Credenciales invalidas' })
@@ -50,6 +55,9 @@ export default function useUser() {
             const data = await registerService(formData)
 
             dispatch(Actions.User.save(data.user))
+
+            localStorage.setItem('token',data.user.token)
+            
             setState({ loading: false, error:false })
           }catch(err){
             setState({ loading: false, error: 'Ha ocurrido un error' })
@@ -64,7 +72,7 @@ export default function useUser() {
         try{
           setState({ loading: true, error: false })
           await logoutService()
-
+          
           dispatch(Actions.User.logout())
           dispatch(Actions.Cart.removeAll())
 

@@ -1,6 +1,6 @@
 import { useDispatch,useSelector } from 'react-redux'
-import { useState, useEffect, useCallback } from 'react'
-import { getAll, remove as removeService, addNew as addNewService, confirm as confirmService} from '../services/cart'
+import { useCallback } from 'react'
+import { getAll, remove as removeService, addNew as addNewService, confirm as confirmService} from '../api/cart'
 import Actions from '../store/actions'
 
 export default function useCart(){
