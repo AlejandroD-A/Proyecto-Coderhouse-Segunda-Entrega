@@ -1,8 +1,9 @@
 const axios = require('axios');
 
-const URL = process.env.BASE_URL
+const URL = process.env.REACT_APP_BASE_URL
 
 console.log(URL)
+
 export const axiosInstance = axios.create({
     baseURL: URL,
     headers: {
