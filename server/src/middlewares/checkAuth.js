@@ -5,7 +5,7 @@ const isAuth = async (req,res,next) =>{
     try{
         //Si tiene una sesion activa se utiliza passport
         if( req.isAuthenticated() ) return next()
-
+        
         //Si envia un token desde el header authorization
         let token = req.headers.authorization
         if (!token) {

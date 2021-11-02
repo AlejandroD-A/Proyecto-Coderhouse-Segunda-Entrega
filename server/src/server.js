@@ -68,6 +68,7 @@ app.use(passport.session())
 
 //Routes
 app.use('/', require('./routes/index.routes'))
+app.use('/productos', require('./routes/productos.routes'))
 app.use('/auth', require('./routes/auth.routes'))
 
 
