@@ -22,6 +22,8 @@ export default function useUser() {
         const token = localStorage.getItem('token')
 
         const data = await getUserService(token)
+
+        if(!data.user) throw err
         dispatch(Actions.User.save(data.user))
       }catch(err){
         console.error(err)

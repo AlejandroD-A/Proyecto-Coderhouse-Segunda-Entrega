@@ -2,6 +2,7 @@ const axios = require('axios');
 
 const URL = process.env.BASE_URL
 
+console.log(URL)
 export const axiosInstance = axios.create({
     baseURL: URL,
     headers: {

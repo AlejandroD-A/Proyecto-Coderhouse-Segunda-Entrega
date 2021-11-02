@@ -45,7 +45,6 @@ export const logout = async ()=> {
 
 export const getUser = async (token)=> {
 	try{
-		console.log(token)
 		const res = await axiosInstance.get(`auth/user`)
 		return res.data
 	}catch(err){
