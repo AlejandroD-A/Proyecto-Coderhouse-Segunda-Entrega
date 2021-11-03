@@ -17,11 +17,11 @@ Para ejecutar en local:
 Para ejecutar en modo Watch con Nodemon :  
 `npm run watch`
 
-Opciones disponibles: 
-`npm run watch -- --port=8082`
-`npm run watch -- --persistence=3`
-`npm run watch -- --sessionTime=10000`
-`npm run watch -- --cluster=CLUSTER`
+Opciones disponibles:   
+`npm run watch -- --port=8082`   
+`npm run watch -- --persistence=3`  
+`npm run watch -- --sessionTime=10000`  
+`npm run watch -- --cluster=CLUSTER`  
 
 
 
