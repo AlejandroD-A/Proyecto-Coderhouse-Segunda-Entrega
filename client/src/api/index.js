@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const URL = process.env.REACT_APP_BASE_URL
+const URL = "https://ecom-ale.herokuapp.com/api"
 
 console.log(URL)
 
