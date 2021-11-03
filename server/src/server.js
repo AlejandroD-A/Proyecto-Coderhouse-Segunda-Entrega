@@ -26,7 +26,7 @@ app.use(express.urlencoded({
 }))
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000','https://proyecto-coderhouse-trabajo-final-git-dev-alejandrod-a.vercel.app'],
 }))
 
 // Static Files 
