@@ -2,7 +2,14 @@
 
 ---
 
+Se agrego JSON postman en root.
+
+
 **Ejecutar en local**
+
+Crear development.env con las variables dentro de env.example.
+
+
 
 Para ejecutar en local:  
 `npm run dev`
@@ -10,6 +17,11 @@ Para ejecutar en local:
 Para ejecutar en modo Watch con Nodemon :  
 `npm run watch`
 
+Opciones disponibles: 
+`npm run watch -- --port=8082`
+`npm run watch -- --persistence=3`
+`npm run watch -- --sessionTime=10000`
+`npm run watch -- --cluster=CLUSTER`
 
 
 
