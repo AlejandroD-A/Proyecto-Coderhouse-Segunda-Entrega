@@ -34,15 +34,6 @@ export const login = async (user)=> {
 	}
 }
 
-export const logout = async ()=> {
-	try{
-		//TO DO!
-		return jsonData
-	}catch(err){
-		throw err 
-	}
-}
-
 export const getUser = async (token)=> {
 	try{
 		const res = await axiosInstance.get(`auth/user`)
