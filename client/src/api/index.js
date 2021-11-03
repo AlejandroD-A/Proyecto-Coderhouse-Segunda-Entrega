@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const URL = "https://ecom-ale.herokuapp.com/api"
+const URL = "http://localhost:8080/api"
 
 console.log(URL)
 
