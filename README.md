@@ -25,11 +25,19 @@ Opciones disponibles:
 
 
 
-**:rocket:Deploy**
+**:rocket:Deploy Backend**
 
 Se realizó el deploy en Heroku.
 
 https://ecom-ale.herokuapp.com/
+
+---
+
+**:rocket:Deploy FrontEnd**
+
+Se realizó el deploy del cliente en VERCEL.
+
+https://proyecto-coderhouse-trabajo-final-git-dev-alejandrod-a.vercel.app/
 
 ---
 
