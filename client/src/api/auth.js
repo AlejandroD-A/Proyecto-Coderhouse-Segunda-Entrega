@@ -13,7 +13,7 @@ export const register = async (user)=> {
 		formData.append('phone',user.phone)
 		formData.append('avatar',user.avatar)
 
-		const res = await axiosInstance.post(`/api/auth/signup`,{
+		const res = await axiosInstance.post(`/auth/signup`,{
 			body: formData
 		})
 
@@ -29,15 +29,6 @@ export const login = async (user)=> {
 		const res = await axiosInstance.post(`/auth/login`,user)
 		return res.data
 
-	}catch(err){
-		throw err 
-	}
-}
-
-export const logout = async ()=> {
-	try{
-		//TO DO!
-		return jsonData
 	}catch(err){
 		throw err 
 	}

@@ -73,8 +73,8 @@ export default function useUser() {
       async () => {
         try{
           setState({ loading: true, error: false })
-          await logoutService()
-          
+
+          localStorage.removeItem('token')
           dispatch(Actions.User.logout())
           dispatch(Actions.Cart.removeAll())
 
