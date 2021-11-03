@@ -12,6 +12,7 @@ Para ejecutar en modo Watch con Nodemon :
 
 
 
+
 **:rocket:Deploy**
 
 Se realizó el deploy en Heroku.
@@ -26,46 +27,46 @@ https://ecom-ale.herokuapp.com/
 
 - **Obtener todos los productos**
 
-  - `GET` | /productos/listar
+  - `GET` | api/productos
 
 - **Filtrar Productos**
 
-  - `GET` | /productos/listar?nombre=producto&codigo=5&precio=200.00&stock=1
+  - `GET` | api/productos/?nombre=producto&codigo=5&precio=200.00&stock=1d
 
 - **Obtener un producto**
 
-  - `GET` | /productos/listar/:id
+  - `GET` | api/productos/:id
 
 - **Crear un nuevo producto**
 
-  - `POST` | /productos/agregar
+  - `POST` | api/productos
 
 - **Actualizar producto**
 
-  - `PUT` | /productos/actualizar/:id
+  - `PUT` | api/productos/:id
 
 - **Eliminar producto**
-  - `DELETE` | /productos/borrar/:id
+  - `DELETE` | api/productos/:id
 
 ##### Carrito
 
 - **Obtener todos los productos del carrito con los campos id y timestamps de carrito**
-  - `GET` | /carrito/listar
+  - `GET` | api/carrito
 
 - **Obtener un producto del carrito con los campos id y timestamps de carrito**
 
-  - `GET` | /carrito/listar/:idItemCarrito
+  - `GET` | api/carrito/:idItemCarrito
 
 - **Agregar al carrito**
 
-  - `POST` | /carrito/agregar/:id_producto
+  - `POST` | api/carrito/:id_producto
 
 - **Eliminar item del carrito**
-  - `DELETE` | /carrito/borrar/:idItemCarrito
+  - `DELETE` | api/carrito/:idItemCarrito
 
 ##### Order
 
 - **Crear nuevo pedido**
-  - `POST` | /order
+  - `POST` | api/order
 
 _made with_ :persevere: _by ale_
