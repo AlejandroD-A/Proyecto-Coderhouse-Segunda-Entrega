@@ -39,7 +39,19 @@
       <div class="navbar-item">
         <div class="field is-grouped">
           <p class="control">
-            <a class="bd-tw-button button" href="/auth/login">
+
+            {{#if isLogged}}
+            <a class="bd-tw-button button" href="/auth/logout">
+              <span class="icon">
+                <i class="fas fa-sign-in-alt"></i>
+              </span>
+              <span>
+                Logout
+              </span>
+            </a>
+
+            {{else}}
+             <a class="bd-tw-button button" href="/auth/login">
               <span class="icon">
                 <i class="fas fa-sign-in-alt"></i>
               </span>
@@ -47,6 +59,8 @@
                 Login
               </span>
             </a>
+
+            {{/if}}
           </p>
         </div>
       </div>

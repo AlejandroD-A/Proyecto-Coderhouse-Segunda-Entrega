@@ -16,15 +16,9 @@ router.post('/signup', multer.single('avatar'), registerValidator, passport.auth
     res.json({ message:"Success", user: req.user })
 })
 
-
-
-router.get('/user', checkAuth, async (req,res)=>{
-    res.json({ message:"Success", user: req.user })
-})
-
 router.get('/logout',(req, res)=>{
     req.logout();
-    res.json({ message:"Se ha deslogueado con exito"})
+    res.redirect('/auth/login')
 })
 
 module.exports = router
