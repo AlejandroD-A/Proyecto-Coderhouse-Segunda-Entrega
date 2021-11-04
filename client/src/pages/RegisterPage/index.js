@@ -37,6 +37,11 @@ function RegisterPage() {
 					<label htmlFor="password">Password</label>
 					<input type="password" placeholder ="your password" name= "password" onChange ={handleChange} />
 				</div>
+
+				<div>
+					<label htmlFor="password">Repeat password</label>
+					<input type="password" placeholder ="repeat password" name= "repeat_password" onChange ={handleChange} />
+				</div>
 				
 				<div>
 					<label htmlFor="name">Nombre</label>
