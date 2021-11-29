@@ -17,10 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const jsonData = await res.json()
             console.log(jsonData)
 
-            if(res.ok){
-                alert('Se ha agregado el elemento al carrito')
+            if(res.status == 500){
+              return alert('Ha ocurrido un error')
             }
-           
+            if(res.status == 400) {
+                return  alert('El producto ya se encuentra en el carrito')
+            }
+            return  alert('Se ha agregado el elemento al carrito')
         }catch(err){
             console.log(err)
         }

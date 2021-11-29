@@ -27,7 +27,7 @@ class CartController{
             const { quantity = 1 } = req.query
             const cartProduct = await CartService.add(id_producto, quantity, req.user.id)
 
-            if(cartProduct == null || cartProduct == undefined ) return res.json({error: 'El producto no existe o ya se encuentra en el carrito'})
+            if(cartProduct == null || cartProduct == undefined ) return res.status(400).json({error: 'El producto no existe o ya se encuentra en el carrito'})
     
             return res.json({ producto : cartProduct })
     
