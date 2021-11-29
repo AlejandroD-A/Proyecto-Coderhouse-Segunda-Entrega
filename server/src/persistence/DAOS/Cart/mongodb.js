@@ -96,7 +96,6 @@ class CartMongoDAO extends ICartDAO {
     }
 
     async update(id, data, user_id){
-
         const updated  = await this.CartModel.updateOne({ _id: id, user: user_id },{ $set: data })
         if(!updated) return undefined
         
