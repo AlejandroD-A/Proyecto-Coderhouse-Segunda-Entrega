@@ -15,57 +15,44 @@
 
 <body>
     <nav class="navbar is-transparent">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/">
-    <div class="logo">
-        <img src="/logo.svg" alt="logo"/>
-    </div>
-    </a>
-    <div class="navbar-burger" data-target="navbarExampleTransparentExample">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-
-  <div id="navbarExampleTransparentExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="/productos">
-        Products
-      </a>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="field is-grouped">
-          <p class="control">
-
-            {{#if isLogged}}
-            <a class="bd-tw-button button" href="/auth/logout">
-              <span class="icon">
-                <i class="fas fa-sign-in-alt"></i>
-              </span>
-              <span>
-                Logout
-              </span>
-            </a>
-
-            {{else}}
-             <a class="bd-tw-button button" href="/auth/login">
-              <span class="icon">
-                <i class="fas fa-sign-in-alt"></i>
-              </span>
-              <span>
-                Login
-              </span>
-            </a>
-
-            {{/if}}
-          </p>
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+        <div class="logo">
+            <img src="/logo.svg" alt="logo"/>
+        </div>
+        </a>
+        <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
       </div>
-    </div>
-  </div>
+
+      <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="/productos">
+            Productos
+          </a>
+        
+        </div>
+
+        <div class="navbar-end">
+          <a class="navbar-item" href="/carrito">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+          </a>
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <a class="bd-tw-button button" href="/auth/logout">
+                  <span class="icon">
+                    <i class="fas fa-sign-in-alt"></i>
+                  </span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 </nav>
 
     {{{body}}}
