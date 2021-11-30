@@ -45,7 +45,6 @@ class CartController{
             const { quantity } = req.query
     
             const cartProduct = await CartService.updateQuantity(id, quantity, req.user.id)
-            console.log(cartProduct)
             if(cartProduct == undefined ) return res.status(400).json({message: 'Ha ocurrido un error'})
             
             return res.json({producto : cartProduct}) 
