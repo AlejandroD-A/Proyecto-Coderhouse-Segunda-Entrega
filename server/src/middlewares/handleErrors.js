@@ -7,7 +7,7 @@ module.exports =  async (error, req, res, next) => {
         if(error.name == "ValidationError"){
             return res.status(422).json({ code: 422, message: error.message });
         }
-        logger.error(error)
+        logger.error(error.message, error)
         await mail.sendEmailError(error)
         return res.status(500).json({ error : 'Ha ocurrido un Error' })
     }catch(err){
