@@ -10,3 +10,14 @@ export const getAll = async ()=>{
 		console.error(err)
 	}
 }
+
+export const getOne = async (id) => {
+	try {
+		const { data, status } = await axiosInstance.get(`/productos/${id}`)
+		console.log(data)
+		if( status != 200 ) return {}
+		return data.producto
+	}catch(err){
+		throw err
+	}
+}
