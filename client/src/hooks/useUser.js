@@ -1,11 +1,10 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import {  useDispatch, useSelector } from 'react-redux'
 import Actions from '../store/actions'
 import { 
-    login as loginService,
-    register as registerService,
-    logout as logoutService,
-    getUser as getUserService,
+    login as apiLogin,
+    register as apiRegister,
+    getUser as apiGetUser,
   } from '../api/auth'
 
 
@@ -19,9 +18,7 @@ export default function useUser() {
 
     const getUser = async () => {
       try{
-        const token = localStorage.getItem('token')
-
-        const data = await getUserService(token)
+        const data = await apiGetUser()
 
         if(!data.user) throw err
         dispatch(Actions.User.save(data.user))
@@ -35,7 +32,7 @@ export default function useUser() {
       async ({ email, password }) => {
           try{
             setState({ loading: true, error:false })
-            const data = await loginService({ email,password })
+            const data = await apiLogin({ email,password })
 
             dispatch(Actions.User.save(data.user))
             
@@ -54,7 +51,8 @@ export default function useUser() {
       async (formData) => {
           try{
             setState({ loading: true, error:false })
-            const data = await registerService(formData)
+            
+            const data = await apiRegister(formData)
 
             dispatch(Actions.User.save(data.user))
 

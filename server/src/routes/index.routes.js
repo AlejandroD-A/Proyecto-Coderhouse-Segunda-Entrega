@@ -12,10 +12,11 @@ router.get('/', async (req, res ) => {
 router.get('/carrito', checkAuthRedirect, async (req, res ) => {
 
     const cartItems = await CartService.getAll(req.user.id)
-    console.log(cartItems)
+    
     return res.render('carrito/index',{
         cartExists: Boolean(cartItems.length),
-        cartItems: cartItems
+        cartItems: cartItems,
+        title: `Carrito ${cartItems.length || null}` 
     })
 })
 

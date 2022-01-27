@@ -5,7 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "set NODE_ENV=production&& node ./src/index.js --",
-    "dev": "set NODE_ENV=development && node ./src/index.js --",
+    "dev": "set NODE_ENV=development&& node ./src/index.js --",
     "build": "npm install",
     "prod": "set NODE_ENV=production&& node ./src/index.js --",
     "watch": "set NODE_ENV=development&& nodemon ./src/index.js",

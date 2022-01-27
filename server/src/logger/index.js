@@ -17,8 +17,9 @@ const loggerError = winston.createLogger({
         new winston.transports.Console({ 
             level: 'info', 
             format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
+                winston.format.errors({ stack: true}),
+                winston.format.timestamp(), 
+                winston.format.prettyPrint()
               )
             }),
         new winston.transports.File({
@@ -56,5 +57,5 @@ const loggerWarn = winston.createLogger({
 module.exports = { 
     info:(msg)=> logger.info(msg),
     warn:(msg)=> loggerWarn.warn(msg),
-    error:(msg)=> loggerError.error(msg)
+    error:(msg,stack)=> loggerError.error(msg,stack)
 }

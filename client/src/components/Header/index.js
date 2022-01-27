@@ -11,6 +11,7 @@ import Cart from '../Cart'
 import logo from './logo.svg'
 
 import useUser from '../../hooks/useUser'
+import config from '../../config'
 
 
 function Header() {
@@ -39,7 +40,7 @@ function Header() {
 						<li className="search">  <RiSearchLine/></li>
 						<li className="cart" onClick={()=> setShowCart(true) }><RiShoppingBasketLine/></li>
 						<li className="email"> { user.email } </li>
-						<li className="avatar"> <img src ={user.avatar} /></li>
+						<li className="avatar"> <img src ={`${config.URL}/${user.avatar}`} /></li>
 						<li className="logout"><a onClick={ handleLogout } >Logout</a></li>
 					</>
 				:

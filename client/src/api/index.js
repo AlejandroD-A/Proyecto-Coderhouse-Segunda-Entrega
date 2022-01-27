@@ -1,11 +1,11 @@
-const axios = require('axios');
+import axios from 'axios'
+import config from '../config'
 
-const URL = "http://localhost:8080/api"
+const urlAPI = `${config.URL}/api`
 
-console.log(URL)
 
 export const axiosInstance = axios.create({
-    baseURL: URL,
+    baseURL: urlAPI,
     headers: {
         "Content-Type": "application/json"
     }
